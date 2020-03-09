@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://gupengcheng.github.io').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="python开发web服务，一般会用到flask，当然可以直接运行python程序，简单的就算部署了，但是也仅限于测试用，很容易你就会发现服务挂了。 gunicorn主要用来部署flask web程序，可以很方便的指定部署的ip和端口以及进程数等问题，但是gunicorn如果死了，那你的服务也挂了。 这时候就要用到今天的主角，supervisor。">
+<meta name="keywords" content="python,flask,web服务器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="flask_gunicorn_supervisor_nginx部署web服务器">
+<meta property="og:url" content="http://gupengcheng.github.io/2020/03/03/flask-gunicorn-supervisor-nginx部署web服务器/index.html">
+<meta property="og:site_name" content="小辜同学">
+<meta property="og:description" content="python开发web服务，一般会用到flask，当然可以直接运行python程序，简单的就算部署了，但是也仅限于测试用，很容易你就会发现服务挂了。 gunicorn主要用来部署flask web程序，可以很方便的指定部署的ip和端口以及进程数等问题，但是gunicorn如果死了，那你的服务也挂了。 这时候就要用到今天的主角，supervisor。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="http://gupengcheng.github.io/images/flask_gunicorn_supervisord_nginx.png">
+<meta property="og:updated_time" content="2020-03-09T15:07:19.711Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="flask_gunicorn_supervisor_nginx部署web服务器">
+<meta name="twitter:description" content="python开发web服务，一般会用到flask，当然可以直接运行python程序，简单的就算部署了，但是也仅限于测试用，很容易你就会发现服务挂了。 gunicorn主要用来部署flask web程序，可以很方便的指定部署的ip和端口以及进程数等问题，但是gunicorn如果死了，那你的服务也挂了。 这时候就要用到今天的主角，supervisor。">
+<meta name="twitter:image" content="http://gupengcheng.github.io/images/flask_gunicorn_supervisord_nginx.png">
+
+<link rel="canonical" href="http://gupengcheng.github.io/2020/03/03/flask-gunicorn-supervisor-nginx部署web服务器/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>flask_gunicorn_supervisor_nginx部署web服务器 | 小辜同学</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小辜同学</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">知行合一 —— 为天地立心，为生民立命</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="http://gupengcheng.github.io/2020/03/03/flask-gunicorn-supervisor-nginx部署web服务器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="小辜同学, gupengcheng311@gmail.com">
+      <meta itemprop="description" content="生命不息，奋斗不止">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小辜同学">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          flask_gunicorn_supervisor_nginx部署web服务器
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-03 16:35:07" itemprop="dateCreated datePublished" datetime="2020-03-03T16:35:07+08:00">2020-03-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-09 23:07:19" itemprop="dateModified" datetime="2020-03-09T23:07:19+08:00">2020-03-09</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>python开发web服务，一般会用到flask，当然可以直接运行python程序，简单的就算部署了，但是也仅限于测试用，很容易你就会发现服务挂了。</p>
+<p>gunicorn主要用来部署flask web程序，可以很方便的指定部署的ip和端口以及进程数等问题，但是gunicorn如果死了，那你的服务也挂了。</p>
+<p>这时候就要用到今天的主角，supervisor。</p>
+<a id="more"></a>
+<p>supervisor主要的作用是监控你部署的服务进程，如果发现进程死了，会马上重新拉起该进程，这样就可以保证web服务稳定长期部署。不至于某一天早上起来，发现服务居然挂了。</p>
+<p>如下，我们要实现的架构就是这样：</p>
+<p><img src="/images/flask_gunicorn_supervisord_nginx.png" alt></p>
+<p>安装环境为CentOS 7.5。</p>
+<h2 id="一-首先安装supervisord和gunicorn"><a href="#一-首先安装supervisord和gunicorn" class="headerlink" title="一. 首先安装supervisord和gunicorn"></a>一. 首先安装supervisord和gunicorn</h2><blockquote>
+<p>pip3 install supervisord<br>或者<br>yum install -y supervisor</p>
+</blockquote>
+<blockquote>
+<p>pip3 install gunicorn</p>
+</blockquote>
+<h2 id="二-配置supervisord"><a href="#二-配置supervisord" class="headerlink" title="二. 配置supervisord"></a>二. 配置supervisord</h2><p>上面安装好后，会自动生成/etc/supervisord.d这个目录和/etc/supervisord.conf文件，supervisord.conf文件就是supervisord的配置文件，所有的配置都会在这里面生效，如果安装好了supervisord后在/etc/下没有找到conf文件，那么需要自己生成一下：</p>
+<p>执行如下命令，生成supervisord的默认配置文件。</p>
+<blockquote>
+<p>echo_supervisord_conf &gt;/etc/supervisord.conf</p>
+</blockquote>
+<p>然后，你会发现在/etc目录下生成了一个supervisord.conf文件，里面就是所有supervisord的默认配置，这里为了后面使用方便，需要修改一下默认配置。</p>
+<p>1). 在supervisord.d目录下创建一个log和conf文件夹</p>
+<p>conf文件夹用来存放需要部署的各个项目的app.conf配置，log用来存放日志。</p>
+<p>2). 修改/etc/supervisord.conf中的默认配置</p>
+<p>首先将文件目录指向我们创建的conf文件夹下面的所有conf后缀的文件，这里的一个conf文件可能就是我们后面部署的一个服务。</p>
+<p><strong><em>这里注意conf文件中;就是注释</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[include]</span><br><span class="line">files = supervisord.d/conf/*.conf</span><br></pre></td></tr></table></figure>
+
+<p>创建几个目录，把所有temp相关的目录改为自定义路径，避免temp目录被系统删除导致异常</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[unix_http_server]</span><br><span class="line">file=/home/supervisor/supervisor.sock</span><br><span class="line"></span><br><span class="line">[supervisord]</span><br><span class="line">logfile=/var/log/supervisor/supervisord.log</span><br><span class="line"></span><br><span class="line">pidfile=/home/supervisor/supervisord.pid</span><br></pre></td></tr></table></figure>
+
+<h2 id="三-配置单个项目的supervisord-app-conf，包含所有gunicorn和flask部署信息"><a href="#三-配置单个项目的supervisord-app-conf，包含所有gunicorn和flask部署信息" class="headerlink" title="三. 配置单个项目的supervisord_app.conf，包含所有gunicorn和flask部署信息"></a>三. 配置单个项目的supervisord_app.conf，包含所有gunicorn和flask部署信息</h2><p>在/etc/supervisord.d/conf/目录下创建一个supervisord_niubi.conf文件，配置部署niubi这个项目的所有参数。</p>
+<p>这里注意，如果部署多个web服务，一定要该这里的program对应的名字[program:nb_app]，如果多个conf文件配置的program名字都一样，会导致启动supervisord后其他同名的项目失败。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[include]</span><br><span class="line">files=/etc/supervisord.conf</span><br><span class="line"></span><br><span class="line">[program:nb_app]</span><br><span class="line">directory = /root/dev/project/niubi ; 程序的启动目录</span><br><span class="line">command = gunicorn -w 2 -b 0.0.0.0:8087 niubi:app ; 启动命令，与命令行启动的命令是一样的,第一个是niubi为启动的python文件;app为app = Flask(__name__)的app; -w指定了2个进程，-b指定了部署的ip和端口，ip设置为0.0.0.0即以公网地址部署。</span><br><span class="line">autostart = true     ; 在 supervisord 启动的时候也自动启动</span><br><span class="line">startsecs = 5        ; 启动 5 秒后没有异常退出，就当作已经正常启动了</span><br><span class="line">autorestart = true   ; 程序异常退出后自动重启</span><br><span class="line">startretries = 3     ; 启动失败自动重试次数，默认是 3</span><br><span class="line">user = root          ; 用哪个用户启动</span><br><span class="line">redirect_stderr = true  ; 把 stderr 重定向到 stdout，默认 false</span><br><span class="line">stdout_logfile_maxbytes = 20MB  ; stdout 日志文件大小，默认 50MB</span><br><span class="line">stdout_logfile_backups = 20     ; stdout 日志文件备份数</span><br><span class="line">; stdout 日志文件，需要注意当指定目录不存在时无法正常启动，所以需要手动创建目录（supervisord 会自动创建日志文件）</span><br><span class="line">stdout_logfile = /etc/supervisord.d/log/confd_nb.log  ;日志统一放在log目录下</span><br><span class="line">; 可以通过 environment 来添加需要的环境变量，一种常见的用法是修改 PYTHONPATH</span><br><span class="line">; environment=PYTHONPATH=$PYTHONPATH:/path/to/somewhere</span><br></pre></td></tr></table></figure>
+
+<p>如果conf文件不在/etc/supervisord.d/conf/目录下创建，那么需要手动把配置好的supervisord_niubi.conf文件放到该目录下才行。</p>
+<h2 id="四-启动或者重启supervisord"><a href="#四-启动或者重启supervisord" class="headerlink" title="四. 启动或者重启supervisord"></a>四. 启动或者重启supervisord</h2><p>启动supervisord，由于已经在supervisord.conf中定义了files指向/etc/supervisord.d/conf/*.conf，所以只需要把我们配置好的各个项目的supervisord_app_project.conf文件放到这个目录下，然后执行启动supervisord命令就可以启动各个项目，方便，牛逼～！！！</p>
+<p>1).启动supervisord命令：<br><strong><em>supervisord -c /etc/supervisord.conf</em></strong></p>
+<p>检查supervisord进程：<br><strong><em>ps aux | grep supervisord</em></strong></p>
+<p>2).supervisord重启</p>
+<p><strong><em>sudo supervisorctl -c /etc/supervisord.conf reload</em></strong></p>
+<h2 id="五-查看supervisord运行情况及关闭supervisord"><a href="#五-查看supervisord运行情况及关闭supervisord" class="headerlink" title="五. 查看supervisord运行情况及关闭supervisord"></a>五. 查看supervisord运行情况及关闭supervisord</h2><p>1).supervisord关闭</p>
+<p><strong><em>sudo supervisorctl -c /etc/supervisord.conf shutdown</em></strong></p>
+<p>2).查看supervisord当前运行的状态，包括有多少个program在运行，比如[program:nb_app]这里会显示nb_app的运行状态</p>
+<p><strong><em>sudo supervisorctl -c /etc/supervisord.conf status</em></strong></p>
+<h2 id="六-运行一段时间后，服务报500的问题"><a href="#六-运行一段时间后，服务报500的问题" class="headerlink" title="六. 运行一段时间后，服务报500的问题"></a>六. 运行一段时间后，服务报500的问题</h2><p>具体你报错如下：</p>
+<blockquote>
+<p>pymysql.err.OperationalError: (2006, “MySQL server has gone away (BrokenPipeError(32, ‘Broken pipe’))”</p>
+</blockquote>
+<p>这是由于mysql的连接(Session)在一段时间(默认是8小时)没有响应后会自动断开，可以通过如下mysql命令来查看默认的配置，其中wait_time就是这个默认的连接等待时间，单位是秒。</p>
+<blockquote>
+<p>show variables like ‘%timeout%’;</p>
+</blockquote>
+<p>发现的确是8小时。</p>
+<p>查了一下，增大这个默认值，只能延缓发生的时间，不能避免这种长时间没有请求的情况下复现这个问题。主要有两种方式比较靠谱：</p>
+<p>1). 设置pool_recycle让Sqlalchemy的session pool定期回收过期session</p>
+<p>这个必须比mysql的wait_time要小</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">e = create_engine(<span class="string">"mysql://scott:tiger@localhost/test"</span>, pool_recycle=<span class="number">3600</span>)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">pool_recycle=-1: this setting causes the pool to recycle</span></span><br><span class="line"><span class="string">    connections after the given number of seconds has passed. It</span></span><br><span class="line"><span class="string">    defaults to -1, or no timeout. For example, setting to 3600</span></span><br><span class="line"><span class="string">    means connections will be recycled after one hour. Note that</span></span><br><span class="line"><span class="string">    MySQL in particular will disconnect automatically if no</span></span><br><span class="line"><span class="string">    activity is detected on a connection for eight hours (although</span></span><br><span class="line"><span class="string">    this is configurable with the MySQLDB connection itself and the</span></span><br><span class="line"><span class="string">    server configuration as well).</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+
+<p>2). 在你的app.py中，申明如下的代码，flask会在每次请求或者app关闭时自动移除mysql的session，这样就算解决了。</p>
+<p>To use SQLAlchemy in a declarative way with your application, you just have to put the following code into your application module. Flask will automatically remove database sessions at the end of the request or when the application shuts down:</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> yourapplication.database <span class="keyword">import</span> db_session</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.teardown_appcontext</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">shutdown_session</span><span class="params">(exception=None)</span>:</span></span><br><span class="line">    db_session.remove()</span><br></pre></td></tr></table></figure>
+
+<p>当时这种方式是否低效率还有待验证。</p>
+<p>-<a href="https://www.cnblogs.com/lesliexong/p/8654615.html" target="_blank" rel="noopener">参考了一下这位博主的解决方式</a></p>
+<p><strong><em>这里还需要配置如下数据库连接参数pool_pre_ping=True，并且配置连接池回收时间（必须小于waiting_time，这里配置为1小时），才能生效，否则还是会出现等一段时间后，数据库断开，无法连接的问题：</em></strong></p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">engine = create_engine(DB_CON_STR,</span><br><span class="line">                       encoding=<span class="string">'utf-8'</span>,</span><br><span class="line">                       echo=<span class="literal">False</span>,</span><br><span class="line">                       pool_pre_ping=<span class="literal">True</span>,</span><br><span class="line">                       pool_recycle=<span class="number">3600</span>) <span class="comment">#echo True will turn on the logging</span></span><br><span class="line"></span><br><span class="line">Session = scoped_session(sessionmaker(bind=engine, autocommit=<span class="literal">True</span>))</span><br></pre></td></tr></table></figure>
+
+<p>原本的代码中操作mysql数据库基本是原生命令的方式，用到了pymysql来连接，这种方式不仅开发效率低、容易出错、不安全（SQL注入），所以基本上在正式开发中已经不常见。</p>
+<p>这里又用到了SQLAlchemy这个库，这个库是python中著名的ORM工具，全称Object Relational Mapping（对象关系映射），通过操作对象就可以操作表。下一篇文章我会详细分析SQLAlchemy的用法。</p>
+<!-- more -->
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/flask/" rel="tag"># flask</a>
+              <a href="/tags/web服务器/" rel="tag"># web服务器</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/12/数据库转表或者叫转库代替直接删除数据/" rel="prev" title="数据库转表或者叫转库代替直接删除数据">
+      <i class="fa fa-chevron-left"></i> 数据库转表或者叫转库代替直接删除数据
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/05/理解Flask中BluePrint-蓝图/" rel="next" title="理解Flask中BluePrint(蓝图)">
+      理解Flask中BluePrint(蓝图) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-首先安装supervisord和gunicorn"><span class="nav-number">1.</span> <span class="nav-text">一. 首先安装supervisord和gunicorn</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-配置supervisord"><span class="nav-number">2.</span> <span class="nav-text">二. 配置supervisord</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-配置单个项目的supervisord-app-conf，包含所有gunicorn和flask部署信息"><span class="nav-number">3.</span> <span class="nav-text">三. 配置单个项目的supervisord_app.conf，包含所有gunicorn和flask部署信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四-启动或者重启supervisord"><span class="nav-number">4.</span> <span class="nav-text">四. 启动或者重启supervisord</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五-查看supervisord运行情况及关闭supervisord"><span class="nav-number">5.</span> <span class="nav-text">五. 查看supervisord运行情况及关闭supervisord</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六-运行一段时间后，服务报500的问题"><span class="nav-number">6.</span> <span class="nav-text">六. 运行一段时间后，服务报500的问题</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">小辜同学, gupengcheng311@gmail.com</p>
+  <div class="site-description" itemprop="description">生命不息，奋斗不止</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小辜同学, gupengcheng311@gmail.com</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://gupengcheng.github.io').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="sqlAlchemy是python中知名的数据库ORM库(全称Object Relational Mapping(对象关系映射))，通过操作对象就可以操作表。 不仅可以防止被sql注入，而且也利于后期修改维护，并且通过对象操作数据库，避免手写mysql代码导致的各种问题。当然还能解决上一篇文章中我们遇到的操作原生mysql中超过waiting_time等待时间后，数据库连接自动释放断开，导致服务器">
+<meta name="keywords" content="python,web服务器,SQLAlchemy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flask-SQLAlchemy和SQLAlchemy入门">
+<meta property="og:url" content="http://gupengcheng.github.io/2020/03/05/Flask-SQLAlchemy和SQLAlchemy入门/index.html">
+<meta property="og:site_name" content="小辜同学">
+<meta property="og:description" content="sqlAlchemy是python中知名的数据库ORM库(全称Object Relational Mapping(对象关系映射))，通过操作对象就可以操作表。 不仅可以防止被sql注入，而且也利于后期修改维护，并且通过对象操作数据库，避免手写mysql代码导致的各种问题。当然还能解决上一篇文章中我们遇到的操作原生mysql中超过waiting_time等待时间后，数据库连接自动释放断开，导致服务器">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-03-09T14:48:33.197Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Flask-SQLAlchemy和SQLAlchemy入门">
+<meta name="twitter:description" content="sqlAlchemy是python中知名的数据库ORM库(全称Object Relational Mapping(对象关系映射))，通过操作对象就可以操作表。 不仅可以防止被sql注入，而且也利于后期修改维护，并且通过对象操作数据库，避免手写mysql代码导致的各种问题。当然还能解决上一篇文章中我们遇到的操作原生mysql中超过waiting_time等待时间后，数据库连接自动释放断开，导致服务器">
+
+<link rel="canonical" href="http://gupengcheng.github.io/2020/03/05/Flask-SQLAlchemy和SQLAlchemy入门/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Flask-SQLAlchemy和SQLAlchemy入门 | 小辜同学</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小辜同学</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">知行合一 —— 为天地立心，为生民立命</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="http://gupengcheng.github.io/2020/03/05/Flask-SQLAlchemy和SQLAlchemy入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="小辜同学, gupengcheng311@gmail.com">
+      <meta itemprop="description" content="生命不息，奋斗不止">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小辜同学">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Flask-SQLAlchemy和SQLAlchemy入门
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-05 16:51:20" itemprop="dateCreated datePublished" datetime="2020-03-05T16:51:20+08:00">2020-03-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-09 22:48:33" itemprop="dateModified" datetime="2020-03-09T22:48:33+08:00">2020-03-09</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>sqlAlchemy是python中知名的数据库ORM库(全称Object Relational Mapping(对象关系映射))，通过操作对象就可以操作表。</p>
+<p>不仅可以防止被sql注入，而且也利于后期修改维护，并且通过对象操作数据库，避免手写mysql代码导致的各种问题。当然还能解决上一篇文章中我们遇到的操作原生mysql中超过waiting_time等待时间后，数据库连接自动释放断开，导致服务器报500的问题：</p>
+<blockquote>
+<p>pymysql.err.OperationalError: (2006, “MySQL server has gone away (BrokenPipeError(32, ‘Broken pipe’))”</p>
+</blockquote>
+<p>下面简单总结一下sqlAlchemy，算是入门。</p>
+<a id="more"></a>
+<h3 id="一-绑定数据库，建立连接"><a href="#一-绑定数据库，建立连接" class="headerlink" title="一.绑定数据库，建立连接"></a>一.绑定数据库，建立连接</h3><p>为了利于后期维护，我们新建一个db.py，用于数据库连接操作，代码如下：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> create_engine</span><br><span class="line"><span class="keyword">from</span> sqlalchemy.orm <span class="keyword">import</span> scoped_session</span><br><span class="line"><span class="keyword">from</span> sqlalchemy.orm <span class="keyword">import</span> sessionmaker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里我们用到的是mysql数据库，用到的连接工具是pymysql。其他数据库以此类推</span></span><br><span class="line">DB_CON_STR = <span class="string">'mysql+pymysql://user:password@host:port/db_name'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里必须配置pool_pre_ping和pool_recycle，否则还是会遇到上一篇中的连接被回收的问题</span></span><br><span class="line">engine = create_engine(DB_CON_STR,</span><br><span class="line">                       encoding=<span class="string">'utf-8'</span>,</span><br><span class="line">                       echo=<span class="literal">False</span>,</span><br><span class="line">                       pool_pre_ping=<span class="literal">True</span>,</span><br><span class="line">                       pool_recycle=<span class="number">3600</span>) <span class="comment">#echo True will turn on the logging</span></span><br><span class="line"></span><br><span class="line">Session = scoped_session(sessionmaker(bind=engine, autocommit=<span class="literal">True</span>))</span><br></pre></td></tr></table></figure>
+
+<h3 id="二-构建数据库表对应的对象关系ORM，发挥出sqlAlchemy操作数据库的优势"><a href="#二-构建数据库表对应的对象关系ORM，发挥出sqlAlchemy操作数据库的优势" class="headerlink" title="二.构建数据库表对应的对象关系ORM，发挥出sqlAlchemy操作数据库的优势"></a>二.构建数据库表对应的对象关系ORM，发挥出sqlAlchemy操作数据库的优势</h3><p>我们考虑模块化和后期维护，一般建立一个models.py来维护我们所有的数据库表对应的对象类。</p>
+<p>这里我们要定义一个sqlalchemy中的基类Base，所有的数据库表对象都要继承这个基类Base，才能够使用sqlalchemy的特性。<br>另外我们一般还要实现<strong>repr</strong>方法，用于打印显示时展示的内容。<br>还有数据库查询出的内容，我们要返回给客户端，一般我们都是返回json格式，所以这里我们给数据库实体类都定义了一个to_json方法，用于格式化数据为json格式返回给客户端，当然也可以用其他方式处理。</p>
+<p>另外这里如果我们已经有数据库表，那么这里只需要和数据库表中的字段一一对应就可以了。否则，需要我们想好数据库相关的关系，并创建数据库。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy.ext.declarative <span class="keyword">import</span> declarative_base</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> Column, Integer, String, ForeignKey</span><br><span class="line"></span><br><span class="line">Base = declarative_base()</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TableA</span><span class="params">(Base)</span>:</span></span><br><span class="line">    __tablename__ = <span class="string">'TableA'</span></span><br><span class="line"> </span><br><span class="line">    id = Column(Integer, primary_key=<span class="literal">True</span>,autoincrement=<span class="literal">True</span>)</span><br><span class="line">    name = Column(String(<span class="number">10</span>), nullable=<span class="literal">False</span>)</span><br><span class="line">    desc = Column(String(<span class="number">2500</span>), nullable=<span class="literal">True</span>, default=<span class="string">""</span>)</span><br><span class="line">    address = Column(String(<span class="number">10</span>), nullable=<span class="literal">True</span>, default=<span class="string">""</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"&lt;TableA(id='%d', name='%s', desc='%s', address='%s')&gt;"</span>%(self.id, self.name, self.desc,self.address)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">to_json</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">                <span class="string">'id'</span>: self.id,</span><br><span class="line">                <span class="string">'name'</span>: self.name,</span><br><span class="line">                <span class="string">'desc'</span>: self.desc,</span><br><span class="line">                <span class="string">'address'</span>: self.address</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TableB</span><span class="params">(Base)</span>:</span></span><br><span class="line">    __tablename__ = <span class="string">'TableB'</span></span><br><span class="line"> </span><br><span class="line">    id = Column(Integer, primary_key=<span class="literal">True</span>,autoincrement=<span class="literal">True</span>)</span><br><span class="line">    title = Column(String(<span class="number">50</span>), nullable=<span class="literal">False</span>)</span><br><span class="line">    <span class="comment"># 这里用到了外键，通过ForeignKey来定义</span></span><br><span class="line">    author_name = Column(String(<span class="number">10</span>), ForeignKey(<span class="string">"Author.name"</span>), nullable=<span class="literal">False</span>)</span><br><span class="line">    content = Column(String(<span class="number">2500</span>), nullable=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"&lt;TableB(id='%d', title='%s', author_name='%s', content='%s')&gt;"</span>%(self.id, self.title, self.author_name,self.content)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">to_json</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">                <span class="string">'id'</span>: self.id,</span><br><span class="line">                <span class="string">'title'</span>: self.title,</span><br><span class="line">                <span class="string">'author_name'</span>: self.author_name,</span><br><span class="line">                <span class="string">'content'</span>: self.content</span><br><span class="line">                &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="三-引用db-py，通过Session及对象类操作数据库"><a href="#三-引用db-py，通过Session及对象类操作数据库" class="headerlink" title="三.引用db.py，通过Session及对象类操作数据库"></a>三.引用db.py，通过Session及对象类操作数据库</h3><p>1).查询表行数</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查询表全部行数</span></span><br><span class="line">table_total_count = Session.query(TableA).count()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 根据条件查询</span></span><br><span class="line">search_table_count = Session.query(TableA).filter(TableA.id==search_id).count()</span><br></pre></td></tr></table></figure>
+
+<p>2).分页查询</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 普通分页查询表数据</span></span><br><span class="line">data = Session.query(TableA).offset((page<span class="number">-1</span>) * per_page).limit(per_page)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 搜索数据</span></span><br><span class="line">data = Session.query(TableA).filter(TableA.name==search_name).offset((page<span class="number">-1</span>) * per_page).limit(per_page)</span><br></pre></td></tr></table></figure>
+
+<p>3).增加数据</p>
+<p>这里注意，增加、删除、更新操作都需要执行commit后才能生效。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">row_data = TableA(name=<span class="string">'张三'</span>,desc=<span class="string">'民营企业家'</span>,address=<span class="string">'成都'</span>)</span><br><span class="line">Session.add(row_data)</span><br><span class="line">Session.commit()</span><br></pre></td></tr></table></figure>
+
+<p>增加多条数据，用add_all</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">row_data_a = TableA(name=<span class="string">'张三'</span>,desc=<span class="string">'民营企业家'</span>,address=<span class="string">'成都'</span>)　</span><br><span class="line">row_data_b = TableA(name=<span class="string">'李四'</span>,desc=<span class="string">'农民'</span>,address=<span class="string">'北京'</span>)</span><br><span class="line">Session.add_all([row_data_a,row_data_b])　</span><br><span class="line">Session.commit()</span><br></pre></td></tr></table></figure>
+
+<p>4).删除数据</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查询出第一条数据，并删除</span></span><br><span class="line">user=Session.query(TableA).filter(TableA.name==<span class="string">"test"</span>).first()</span><br><span class="line">Session.delete(user)</span><br><span class="line">Session.commit()</span><br></pre></td></tr></table></figure>
+
+<p>5).修改数据</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">user=Session.query(TableA).filter(TableA.name==<span class="string">"test"</span>).first()</span><br><span class="line">user.name = <span class="string">"刘总"</span>　</span><br><span class="line">Session.commit()</span><br></pre></td></tr></table></figure>
+
+<h3 id="四-在入口类app-py中引用db中的Session，申明如下方法请求完成后释放数据库连接池session"><a href="#四-在入口类app-py中引用db中的Session，申明如下方法请求完成后释放数据库连接池session" class="headerlink" title="四.在入口类app.py中引用db中的Session，申明如下方法请求完成后释放数据库连接池session"></a>四.在入口类app.py中引用db中的Session，申明如下方法请求完成后释放数据库连接池session</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">app = Flask(__name__, static_url_path=<span class="string">""</span>, static_folder=<span class="string">""</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过blueprint在app.py中注册各个模块，做到模块化管理（比如注册模块，首页模块），也利于后期维护</span></span><br><span class="line"><span class="comment"># url_prefix定义BluePrint中的前缀连接，用于分组管理接口，这里定义好后，请求的连接也需要加上url_prefix定义的值才能访问</span></span><br><span class="line">app.register_blueprint(a_blueprint, url_prefix=<span class="string">'/prefix_a'</span>)</span><br><span class="line">app.register_blueprint(b_blueprint, url_prefix=<span class="string">'/prefix_b'</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.teardown_appcontext</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cleanup</span><span class="params">(resp_or_exc)</span>:</span></span><br><span class="line">    Session.remove()</span><br></pre></td></tr></table></figure>
+
+<p>当然每个框架也都有利有弊，flask-sqlalchemy又是一个集成sqlalchemy到flask中的一个框架，帮你做了很多集成sqlalchemy的事情，这里暂时没有用到，后期可以再研究研究。</p>
+<p>这里我们用到了blueprint蓝图的概念，下一篇我们介绍一下blueprint的用法，有利于模块化开发，及后期维护。</p>
+<!-- more -->
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/web服务器/" rel="tag"># web服务器</a>
+              <a href="/tags/SQLAlchemy/" rel="tag"># SQLAlchemy</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/05/理解Flask中BluePrint-蓝图/" rel="prev" title="理解Flask中BluePrint(蓝图)">
+      <i class="fa fa-chevron-left"></i> 理解Flask中BluePrint(蓝图)
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-绑定数据库，建立连接"><span class="nav-number">1.</span> <span class="nav-text">一.绑定数据库，建立连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-构建数据库表对应的对象关系ORM，发挥出sqlAlchemy操作数据库的优势"><span class="nav-number">2.</span> <span class="nav-text">二.构建数据库表对应的对象关系ORM，发挥出sqlAlchemy操作数据库的优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三-引用db-py，通过Session及对象类操作数据库"><span class="nav-number">3.</span> <span class="nav-text">三.引用db.py，通过Session及对象类操作数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四-在入口类app-py中引用db中的Session，申明如下方法请求完成后释放数据库连接池session"><span class="nav-number">4.</span> <span class="nav-text">四.在入口类app.py中引用db中的Session，申明如下方法请求完成后释放数据库连接池session</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">小辜同学, gupengcheng311@gmail.com</p>
+  <div class="site-description" itemprop="description">生命不息，奋斗不止</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小辜同学, gupengcheng311@gmail.com</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
