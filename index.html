@@ -170,6 +170,76 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="http://gupengcheng.github.io/2020/03/09/ffmpge硬解码部分设备显示黑屏的问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="小辜同学, gupengcheng311@gmail.com">
+      <meta itemprop="description" content="生命不息，奋斗不止">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小辜同学">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/09/ffmpge硬解码部分设备显示黑屏的问题/" class="post-title-link" itemprop="url">ffmpge硬解码部分设备显示黑屏的问题</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-03-09 23:22:28 / Modified: 23:35:30" itemprop="dateCreated datePublished" datetime="2020-03-09T23:22:28+08:00">2020-03-09</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>ffmpeg硬解码播放rtsp，在部分设备（一台5.1.1的长虹电视、一台9.0的android盒子）上都表现为你黑屏，但是硬解码可以抽帧，其他都正常。</p>
+<p>通过日志看发现在显示的时候先要获取surface锁ANativeWindow_lock的时候，失败了，返回-19，如下：</p>
+<blockquote>
+<p>ANativeWindow_lock: failed -19</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/09/ffmpge硬解码部分设备显示黑屏的问题/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
     <link itemprop="mainEntityOfPage" href="http://gupengcheng.github.io/2020/03/05/Flask-SQLAlchemy和SQLAlchemy入门/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -870,7 +940,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -879,7 +949,7 @@
         <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
