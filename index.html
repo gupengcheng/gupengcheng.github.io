@@ -273,7 +273,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-23 22:39:04" itemprop="dateModified" datetime="2020-03-23T22:39:04+08:00">2020-03-23</time>
+                <time title="Modified: 2020-03-23 22:44:08" itemprop="dateModified" datetime="2020-03-23T22:44:08+08:00">2020-03-23</time>
               </span>
 
           
@@ -289,11 +289,14 @@
       
           <p>默认不设置，ul中每一行的内容不会居中显示。</p>
 <p>解决办法如下：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span><span class="selector-id">#centerDiv</span> &#123;</span><br><span class="line">        <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">        <span class="attribute">text-align</span>: center;</span><br><span class="line">        <span class="attribute">border</span>: <span class="number">1px</span> solid red;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="selector-tag">ul</span><span class="selector-class">.centerUL</span> &#123;</span><br><span class="line">        <span class="attribute">margin</span>: <span class="number">2px</span> auto;</span><br><span class="line">        <span class="attribute">line-height</span>: <span class="number">1.4</span>;</span><br><span class="line">        <span class="attribute">padding-left</span>: <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="selector-class">.centerUL</span> <span class="selector-tag">li</span> &#123;</span><br><span class="line">        <span class="attribute">display</span>: inline;</span><br><span class="line">        <span class="attribute">text-align</span>: center;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"centerDiv"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"centerUL"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://www.amazon.com"</span>&gt;</span>Amazon 1<span class="tag">&lt;/<span class="name">a</span>&gt;</span>&amp;nbsp;&amp;nbsp;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://www.amazon.com"</span>&gt;</span>Amazon 2<span class="tag">&lt;/<span class="name">a</span>&gt;</span>&amp;nbsp;&amp;nbsp;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://www.amazon.com"</span>&gt;</span>Amazon 3<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/22/React-antd中ul中内容居中显示/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -408,7 +411,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-23 22:38:53" itemprop="dateModified" datetime="2020-03-23T22:38:53+08:00">2020-03-23</time>
+                <time title="Modified: 2020-03-23 22:43:51" itemprop="dateModified" datetime="2020-03-23T22:43:51+08:00">2020-03-23</time>
               </span>
 
           
@@ -430,16 +433,14 @@
 <blockquote>
 <p>No ‘Access-Control-Allow-Origin’ header is present on the requested resource. If an opaque response serves your needs, set the request’s mode to ‘no-cors’ to fetch the resource with CORS disabled</p>
 </blockquote>
-<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><p>在package.json中增加proxy这一项配置，配置内容为服务端的接口地址。</p>
-<blockquote>
-<p>“proxy”: “<a href="http://server_api_address:3002&quot;" target="_blank" rel="noopener">http://server_api_address:3002&quot;</a></p>
-</blockquote>
-<p><strong><em>然后注意的是，fetch请求的接口地址去掉前面的域名(或ip)、端口，然后你会发现跨域解决了。</em></strong></p>
-<blockquote>
-<p>fetch(‘/mm/girl?page=1&amp;per_page=10’)</p>
-</blockquote>
-<p>因为这时候，对于网页来说，你请求的地址并没有跨域，只是做了一次转发。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/17/React请求接口跨域的问题/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
