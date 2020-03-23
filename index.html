@@ -201,7 +201,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-23 22:31:21" itemprop="dateModified" datetime="2020-03-23T22:31:21+08:00">2020-03-23</time>
+                <time title="Modified: 2020-03-23 22:39:38" itemprop="dateModified" datetime="2020-03-23T22:39:38+08:00">2020-03-23</time>
               </span>
 
           
@@ -224,6 +224,222 @@
             </div>
           <!--/noindex-->
         
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="http://gupengcheng.github.io/2020/03/22/React-antd中ul中内容居中显示/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="小辜同学, gupengcheng311@gmail.com">
+      <meta itemprop="description" content="生命不息，奋斗不止">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小辜同学">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/22/React-antd中ul中内容居中显示/" class="post-title-link" itemprop="url">React antd中ul中内容居中显示</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-22 22:13:58" itemprop="dateCreated datePublished" datetime="2020-03-22T22:13:58+08:00">2020-03-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-23 22:39:04" itemprop="dateModified" datetime="2020-03-23T22:39:04+08:00">2020-03-23</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>默认不设置，ul中每一行的内容不会居中显示。</p>
+<p>解决办法如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span><span class="selector-id">#centerDiv</span> &#123;</span><br><span class="line">        <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">        <span class="attribute">text-align</span>: center;</span><br><span class="line">        <span class="attribute">border</span>: <span class="number">1px</span> solid red;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="selector-tag">ul</span><span class="selector-class">.centerUL</span> &#123;</span><br><span class="line">        <span class="attribute">margin</span>: <span class="number">2px</span> auto;</span><br><span class="line">        <span class="attribute">line-height</span>: <span class="number">1.4</span>;</span><br><span class="line">        <span class="attribute">padding-left</span>: <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="selector-class">.centerUL</span> <span class="selector-tag">li</span> &#123;</span><br><span class="line">        <span class="attribute">display</span>: inline;</span><br><span class="line">        <span class="attribute">text-align</span>: center;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"centerDiv"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"centerUL"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://www.amazon.com"</span>&gt;</span>Amazon 1<span class="tag">&lt;/<span class="name">a</span>&gt;</span>&amp;nbsp;&amp;nbsp;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://www.amazon.com"</span>&gt;</span>Amazon 2<span class="tag">&lt;/<span class="name">a</span>&gt;</span>&amp;nbsp;&amp;nbsp;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://www.amazon.com"</span>&gt;</span>Amazon 3<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="http://gupengcheng.github.io/2020/03/22/React-antd框架中Pagination分页展示/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="小辜同学, gupengcheng311@gmail.com">
+      <meta itemprop="description" content="生命不息，奋斗不止">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小辜同学">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/22/React-antd框架中Pagination分页展示/" class="post-title-link" itemprop="url">React antd框架中Pagination分页展示</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-22 15:51:58" itemprop="dateCreated datePublished" datetime="2020-03-22T15:51:58+08:00">2020-03-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-23 22:39:24" itemprop="dateModified" datetime="2020-03-23T22:39:24+08:00">2020-03-23</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="React中用antd框架Pagination实现分页total的坑"><a href="#React中用antd框架Pagination实现分页total的坑" class="headerlink" title="React中用antd框架Pagination实现分页total的坑"></a>React中用antd框架Pagination实现分页total的坑</h2><p>total指的并不是一共有多少页，而是一共需要展示的总数，即total_page*per_page_count，所以这就是为什么设置total为页数的时候，却发现不能正确展示页数的原因，因为页数实际成了total_page/per_page_count。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="http://gupengcheng.github.io/2020/03/17/React请求接口跨域的问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="小辜同学, gupengcheng311@gmail.com">
+      <meta itemprop="description" content="生命不息，奋斗不止">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小辜同学">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/17/React请求接口跨域的问题/" class="post-title-link" itemprop="url">React请求接口跨域的问题</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-17 16:41:08" itemprop="dateCreated datePublished" datetime="2020-03-17T16:41:08+08:00">2020-03-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-23 22:38:53" itemprop="dateModified" datetime="2020-03-23T22:38:53+08:00">2020-03-23</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>React通过fetch请求接口的时候，本地调试，直接通过服务端接口地址访问远程接口，会报错接口跨域的问题。</p>
+<blockquote>
+<p>fetch(‘<a href="http://server_api_address:3002/mm/girl?page=1&amp;per_page=10&#39;" target="_blank" rel="noopener">http://server_api_address:3002/mm/girl?page=1&amp;per_page=10&#39;</a>)</p>
+</blockquote>
+<p>错误如下：</p>
+<blockquote>
+<p>No ‘Access-Control-Allow-Origin’ header is present on the requested resource. If an opaque response serves your needs, set the request’s mode to ‘no-cors’ to fetch the resource with CORS disabled</p>
+</blockquote>
+<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><p>在package.json中增加proxy这一项配置，配置内容为服务端的接口地址。</p>
+<blockquote>
+<p>“proxy”: “<a href="http://server_api_address:3002&quot;" target="_blank" rel="noopener">http://server_api_address:3002&quot;</a></p>
+</blockquote>
+<p><strong><em>然后注意的是，fetch请求的接口地址去掉前面的域名(或ip)、端口，然后你会发现跨域解决了。</em></strong></p>
+<blockquote>
+<p>fetch(‘/mm/girl?page=1&amp;per_page=10’)</p>
+</blockquote>
+<p>因为这时候，对于网页来说，你请求的地址并没有跨域，只是做了一次转发。</p>
+
       
     </div>
 
@@ -669,208 +885,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="http://gupengcheng.github.io/2020/02/10/2020年初的这场肺炎病毒疫情/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="小辜同学, gupengcheng311@gmail.com">
-      <meta itemprop="description" content="生命不息，奋斗不止">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小辜同学">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/10/2020年初的这场肺炎病毒疫情/" class="post-title-link" itemprop="url">2020年初的这场肺炎病毒疫情</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-02-10 17:50:40 / Modified: 17:54:02" itemprop="dateCreated datePublished" datetime="2020-02-10T17:50:40+08:00">2020-02-10</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>“山川异域，风月同天。岂曰无衣，与子同裳。”<br>看到日本友人赠送给中国湖北的口罩、防护服上印刻的这句话，感悟颇多。人与人的关系，历史与现实的关系，国与国的关系，国民与国民的关系。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="http://gupengcheng.github.io/2020/02/04/flutter基础入门二-容器组件/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="小辜同学, gupengcheng311@gmail.com">
-      <meta itemprop="description" content="生命不息，奋斗不止">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小辜同学">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/04/flutter基础入门二-容器组件/" class="post-title-link" itemprop="url">flutter基础入门二(容器组件)</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-04 16:51:16" itemprop="dateCreated datePublished" datetime="2020-02-04T16:51:16+08:00">2020-02-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-10 11:41:04" itemprop="dateModified" datetime="2020-03-10T11:41:04+08:00">2020-03-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>上一篇我介绍了flutter的一些基础知识，包括一切都是widget，组件分为StatelessWidget和StatefulWidget，一个flutter应用程序的入口是main=&gt;runApp等。</p>
-<p>本篇我想总结一下flutter中的容器，对标Android开发中的LinearLayout，RelativeLayout，FrameLayout，ViewGroup等，看看在flutter中该怎么实现。</p>
-<h2 id="flutter中的容器有哪些？"><a href="#flutter中的容器有哪些？" class="headerlink" title="flutter中的容器有哪些？"></a>flutter中的容器有哪些？</h2><h4 id="1、Row、Column"><a href="#1、Row、Column" class="headerlink" title="1、Row、Column"></a>1、Row、Column</h4><p>这类似于Android开发中的LinearLayout，Row指定的方向是horizontal水平方向，而Column则是vertical垂直方向。<br>官方介绍是模仿的web开发中的flexbox布局模型设计的。</p>
-<h4 id="2、Container"><a href="#2、Container" class="headerlink" title="2、Container"></a>2、Container</h4><p>一个容器，可以指定背景、边框、阴影等，还可以设置外边距、内边距、尺寸等约束条件。简单来说，你想要给一个组件加入一些约束条件，就把它放到Container中去。</p>
-<h4 id="3、Stack"><a href="#3、Stack" class="headerlink" title="3、Stack"></a>3、Stack</h4><p>类似于Android中已经被废弃的绝对布局，或者RelativeLayout相对布局？</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="http://gupengcheng.github.io/2020/01/28/flutter基础入门-一/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="小辜同学, gupengcheng311@gmail.com">
-      <meta itemprop="description" content="生命不息，奋斗不止">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小辜同学">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/28/flutter基础入门-一/" class="post-title-link" itemprop="url">flutter基础入门(一)</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-01-28 15:47:06" itemprop="dateCreated datePublished" datetime="2020-01-28T15:47:06+08:00">2020-01-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-10 11:34:10" itemprop="dateModified" datetime="2020-03-10T11:34:10+08:00">2020-03-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>flutter从第一次接触到现在也有快2年了，从最开始可以跨平台iOS、Android，到后来1.0版本发布，官方不断完善，到可以支持wb，未来可能还会支持windows、macOS等，成为真正的跨平台开发工具，所以准备系统的总结一下flutter从入门开始的一些内容。</p>
-<h3 id="1、flutter是什么"><a href="#1、flutter是什么" class="headerlink" title="1、flutter是什么"></a>1、flutter是什么</h3><p>看一下官方是怎么介绍flutter的：</p>
-<p><strong><em>Flutter is Google’s UI toolkit for building beautiful, natively compiled applications for mobile, wb, and desktop from a single codebase.</em></strong></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/01/28/flutter基础入门-一/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -941,7 +955,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -950,7 +964,7 @@
         <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">33</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
