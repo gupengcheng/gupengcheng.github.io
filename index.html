@@ -201,7 +201,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-23 22:22:43" itemprop="dateModified" datetime="2020-03-23T22:22:43+08:00">2020-03-23</time>
+                <time title="Modified: 2020-03-23 22:31:21" itemprop="dateModified" datetime="2020-03-23T22:31:21+08:00">2020-03-23</time>
               </span>
 
           
@@ -216,26 +216,14 @@
 
       
           <p>首先上传工程源码到服务器，然后保证你已经在服务器上安装了react script，而且已经npm install下载了所有的依赖库，然后可以运行如下命令，在生成的build文件夹中，会有index.html，这就是web的新入口</p>
-<blockquote>
-<p>npm run build</p>
-</blockquote>
-<p>1、克隆你的react-demo项目到服务器上（默认使用Github管理我们的项目）<br>2、如果需要，请安装项目环境，比如：node.js，npm或yarn等。这里以node和npm为例：</p>
-<blockquote>
-<p>curl -sL <a href="https://rpm.nodesource.com/setup_10.x" target="_blank" rel="noopener">https://rpm.nodesource.com/setup_10.x</a> | sudo bash -<br>sudo yum install nodejs<br>node –version<br>npm –version<br>3、进入项目目录，执行npm run build，开始构建项目<br>4、构建成功之后，会生成一个dist文件夹（取决于你的项目配置），没有配置的话是工程目录下的build目录下，这个文件夹里的静态文件，就是我们的项目的访问文件了，<br>5、配置Nginx，Linux服务器是进入到：/etc/nginx/sites-enabled，然后以管理员身份，新建一个你的react项目的配置文件，比如：react-demo.conf</p>
-</blockquote>
-<h2 id="403-forbitten"><a href="#403-forbitten" class="headerlink" title="403 forbitten"></a>403 forbitten</h2><p>设置nginx.config第一句, use nignx改为 use root<br>重启nginx即可。</p>
-<h2 id="网站改为https后，请求原来的http接口的问题"><a href="#网站改为https后，请求原来的http接口的问题" class="headerlink" title="网站改为https后，请求原来的http接口的问题"></a>网站改为https后，请求原来的http接口的问题</h2><p>原有的服务部署在5000端口，现在网页改为https后，会发现请求不到http接口了，开发者模式看了一下请求地址，发现会默认走443端口，这样肯定找不到5000端口上的服务了。</p>
-<p>试了一下将原有的gunicorn+flask服务改成https的，增加cert证书配置即可，的确可以改成https，但是React网页fetch端口还是不能访问，因为默认还是会走443端口。</p>
-<p>1）、所以需要配置nginx转发，将所有的/aapi请求转发到http的5000端口服务上来，<strong><em>所以这里你会发现同一个服务用一个项目名的重要性，比如这里将5000上的服务都用aapi来作为第一个地址前缀。</em></strong></p>
- <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">location /aapi &#123;</span><br><span class="line">        <span class="comment"># First attempt to serve request as file, then</span></span><br><span class="line">        <span class="comment"># as directory, then fall back to displaying a 404.</span></span><br><span class="line">        proxy_pass http://<span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">5000</span>/aapi;</span><br><span class="line">        proxy_set_header Host $host;</span><br><span class="line">        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>2）、然后就需要去flask中，将原来的blueprint中前缀都配置该地址aapi。</p>
-<p>3）、React项目中package.json中配置proxy转发所有/aapi的请求都转发到5000端口</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"proxy"</span>: &#123;</span><br><span class="line">    <span class="string">"/aapi"</span>:&#123;</span><br><span class="line">        <span class="string">"target"</span>:<span class="string">"http://localhost:5000"</span>,</span><br><span class="line">        <span class="string">"secure"</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="string">"changeOrigin"</span>: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<p>并将所有的fetch接口地址前缀都加上/aapi。</p>
-<p><strong><em>这时候重启flask_gunicorn_supervisor和nginx，神奇的一幕发生了，https网页成功访问到了原来的http 5000端口的服务。</em></strong></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/22/React项目部署到服务器/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
