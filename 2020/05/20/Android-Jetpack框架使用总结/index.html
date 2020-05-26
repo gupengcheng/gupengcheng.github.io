@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://gupengcheng.github.io').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="一、使用AndroidX库，替换android.support库比如引用appcompat库方式如下： com.android.support:appcompat-v7:28.0.0 包含ActionBar、AppCompatActivity、AppCompatDialog、ShareActionProvider等主要类，28.0.0是最后一个维护的版本，之后谷歌不再维护android.suppo">
+<meta name="keywords" content="jetpack,mvvm,框架">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Jetpack框架使用总结">
+<meta property="og:url" content="http://gupengcheng.github.io/2020/05/20/Android-Jetpack框架使用总结/index.html">
+<meta property="og:site_name" content="小辜同学">
+<meta property="og:description" content="一、使用AndroidX库，替换android.support库比如引用appcompat库方式如下： com.android.support:appcompat-v7:28.0.0 包含ActionBar、AppCompatActivity、AppCompatDialog、ShareActionProvider等主要类，28.0.0是最后一个维护的版本，之后谷歌不再维护android.suppo">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-05-26T03:34:10.841Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Jetpack框架使用总结">
+<meta name="twitter:description" content="一、使用AndroidX库，替换android.support库比如引用appcompat库方式如下： com.android.support:appcompat-v7:28.0.0 包含ActionBar、AppCompatActivity、AppCompatDialog、ShareActionProvider等主要类，28.0.0是最后一个维护的版本，之后谷歌不再维护android.suppo">
+
+<link rel="canonical" href="http://gupengcheng.github.io/2020/05/20/Android-Jetpack框架使用总结/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Android Jetpack框架使用总结 | 小辜同学</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小辜同学</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">知行合一 —— 为天地立心，为生民立命</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="http://gupengcheng.github.io/2020/05/20/Android-Jetpack框架使用总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="小辜同学, gupengcheng311@gmail.com">
+      <meta itemprop="description" content="生命不息，奋斗不止">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小辜同学">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android Jetpack框架使用总结
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-05-20 10:43:20" itemprop="dateCreated datePublished" datetime="2020-05-20T10:43:20+08:00">2020-05-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-26 11:34:10" itemprop="dateModified" datetime="2020-05-26T11:34:10+08:00">2020-05-26</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="一、使用AndroidX库，替换android-support库"><a href="#一、使用AndroidX库，替换android-support库" class="headerlink" title="一、使用AndroidX库，替换android.support库"></a>一、使用AndroidX库，替换android.support库</h3><p>比如引用appcompat库方式如下：</p>
+<p><code>com.android.support:appcompat-v7:28.0.0</code></p>
+<p>包含ActionBar、AppCompatActivity、AppCompatDialog、ShareActionProvider等主要类，28.0.0是最后一个维护的版本，之后谷歌不再维护android.support库，全部移到androidX库中统一维护，并且AndroidX是向后兼容的。</p>
+<a id="more"></a>
+<h6 id="1）、在项目中使用AndroidX"><a href="#1）、在项目中使用AndroidX" class="headerlink" title="1）、在项目中使用AndroidX"></a>1）、在项目中使用AndroidX</h6><p>如需了解如何迁移现有项目，请参阅<a href="https://developer.android.com/jetpack/androidx/migrate" target="_blank" rel="noopener">迁移到 AndroidX</a>。</p>
+<p>如果要在新项目中使用命名空间为 <code>androidx</code> 的库，则需要将编译 SDK 设置为 Android 9.0（API 级别 28）或更高版本，并在 <a href="https://developer.android.com/studio/build#properties-files" target="_blank" rel="noopener"><code>gradle.properties</code></a> 文件中将以下两个 Android Gradle 插件标记设置为 <code>true</code>。</p>
+<ul>
+<li><code>android.useAndroidX</code>：该标记设置为 <code>true</code> 时，Android 插件会使用对应的 AndroidX 库，而非支持库。如果未指定，则该标记默认为 <code>false</code>。</li>
+<li><code>android.enableJetifier</code>：该标记设置为 <code>true</code> 时，Android 插件会通过重写其二进制文件来自动迁移现有的第三方库，以使用 AndroidX 依赖项。如果未指定，该标记默认为 <code>false</code>。</li>
+</ul>
+<h3 id="二、在项目中使用视图绑定ViewBinding替代findViewById"><a href="#二、在项目中使用视图绑定ViewBinding替代findViewById" class="headerlink" title="二、在项目中使用视图绑定ViewBinding替代findViewById"></a>二、在项目中使用视图绑定ViewBinding替代findViewById</h3><p>通过视图绑定ViewBinding功能，您可以更轻松地编写可与视图交互的代码。在模块中启用视图绑定之后，系统会为该模块中的每个 XML 布局文件生成一个绑定类。绑定类的实例包含对在相应布局中具有 ID 的所有视图的直接引用。</p>
+<h4 id="申明"><a href="#申明" class="headerlink" title="申明"></a>申明</h4><h6 id="1）、通过在build-gradle中申明如下："><a href="#1）、通过在build-gradle中申明如下：" class="headerlink" title="1）、通过在build.gradle中申明如下："></a>1）、通过在build.gradle中申明如下：</h6><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">viewBinding &#123;</span><br><span class="line">            enabled = <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="2）、如果要在某个布局中移除视图绑定，可以在布局文件中声明："><a href="#2）、如果要在某个布局中移除视图绑定，可以在布局文件中声明：" class="headerlink" title="2）、如果要在某个布局中移除视图绑定，可以在布局文件中声明："></a>2）、如果要在某个布局中移除视图绑定，可以在布局文件中声明：</h6><p><code>tools:viewBindingIgnore=&quot;true&quot;</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span></span></span><br><span class="line"><span class="tag">            <span class="attr">...</span></span></span><br><span class="line"><span class="tag">            <span class="attr">tools:viewBindingIgnore</span>=<span class="string">"true"</span> &gt;</span></span><br><span class="line">        ...</span><br><span class="line">    <span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><h6 id="1）、系统会自动生成一个xml对应的Binding文件"><a href="#1）、系统会自动生成一个xml对应的Binding文件" class="headerlink" title="1）、系统会自动生成一个xml对应的Binding文件"></a>1）、系统会自动生成一个xml对应的Binding文件</h6><p>将 XML 文件的名称转换为驼峰式大小写，并在末尾添加“Binding”一词，比如一个layout_setting.xml的布局，生成文件为LayoutSettingBinding</p>
+<h6 id="2-、所有在xml中申明id的View都会在Binding中创建对应的绑定引用"><a href="#2-、所有在xml中申明id的View都会在Binding中创建对应的绑定引用" class="headerlink" title="2)、所有在xml中申明id的View都会在Binding中创建对应的绑定引用"></a>2)、所有在xml中申明id的View都会在Binding中创建对应的绑定引用</h6><h6 id="3）、通过Binding获取布局文件的根视图"><a href="#3）、通过Binding获取布局文件的根视图" class="headerlink" title="3）、通过Binding获取布局文件的根视图"></a>3）、通过Binding获取布局文件的根视图</h6><p><code>getRoot()</code>方法</p>
+<p>如果要获取Binding的实例，可以通过<code>ResultProfileBinding.inflate()</code>方法</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">lateinit</span> <span class="keyword">var</span> binding: ResultProfileBinding</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        binding = ResultProfileBinding.inflate(layoutInflater)</span><br><span class="line">        setContentView(binding.root)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="注意和区别"><a href="#注意和区别" class="headerlink" title="注意和区别"></a>注意和区别</h4><h6 id="1）、与使用-findViewById-相比，视图绑定具有一些很显著的优点："><a href="#1）、与使用-findViewById-相比，视图绑定具有一些很显著的优点：" class="headerlink" title="1）、与使用 findViewById 相比，视图绑定具有一些很显著的优点："></a>1）、与使用 <code>findViewById</code> 相比，视图绑定具有一些很显著的优点：</h6><ul>
+<li><strong>Null 安全</strong>：由于视图绑定会创建对视图的直接引用，因此不存在因视图 ID 无效而引发 Null 指针异常的风险。此外，如果视图仅出现在布局的某些配置中，则绑定类中包含其引用的字段会使用 <code>@Nullable</code> 标记。</li>
+<li><strong>类型安全</strong>：每个绑定类中的字段均具有与它们在 XML 文件中引用的视图相匹配的类型。这意味着不存在发生类转换异常的风险。</li>
+</ul>
+<p>这些差异意味着布局和代码之间的不兼容性可能会导致编译版本在编译时（而非运行时）失败。</p>
+<h6 id="2）、视图绑定和数据绑定库均会生成可用于直接引用视图的绑定类。不过，这两者之间存在明显差异："><a href="#2）、视图绑定和数据绑定库均会生成可用于直接引用视图的绑定类。不过，这两者之间存在明显差异：" class="headerlink" title="2）、视图绑定和数据绑定库均会生成可用于直接引用视图的绑定类。不过，这两者之间存在明显差异："></a>2）、视图绑定和<a href="https://developer.android.com/topic/libraries/data-binding" target="_blank" rel="noopener">数据绑定库</a>均会生成可用于直接引用视图的绑定类。不过，这两者之间存在明显差异：</h6><ul>
+<li>数据绑定库仅处理使用 <code>&lt;layout&gt;</code> 代码创建的数据绑定布局。</li>
+<li>视图绑定不支持布局变量或布局表达式，因此它不能用于在 XML 中将布局与数据绑定。</li>
+</ul>
+<h3 id="三、数据绑定库"><a href="#三、数据绑定库" class="headerlink" title="三、数据绑定库"></a>三、数据绑定库</h3><p>数据绑定库是一种支持库，借助该库，您可以使用声明性格式（而非程序化地）将布局中的界面组件绑定到应用中的数据源。</p>
+<p><strong>这是实现在Android上实现MVVM架构的官方解决方案。</strong></p>
+<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>比如如下代码可以区别使用和不实用数据绑定库的区别，可以看到，使用数据绑定后，不需要关心数据如何更新到UI，只需要专注数据处理和业务逻辑即可：</p>
+<h6 id="1）、不使用"><a href="#1）、不使用" class="headerlink" title="1）、不使用"></a>1）、不使用</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TextView textView = findViewById(R.id.sample_text);</span><br><span class="line">    textView.setText(viewModel.getUserName());</span><br></pre></td></tr></table></figure>
+
+<h6 id="2）、使用数据绑定"><a href="#2）、使用数据绑定" class="headerlink" title="2）、使用数据绑定"></a>2）、使用数据绑定</h6><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">"@&#123;viewmodel.userName&#125;"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h4><h6 id="1-、在app的gradle中申明如下："><a href="#1-、在app的gradle中申明如下：" class="headerlink" title="1)、在app的gradle中申明如下："></a>1)、在app的gradle中申明如下：</h6><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dataBinding &#123;</span><br><span class="line">            enabled = <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="2）、xml跟布局改为layout标签，然后申明data标签，用于申明变量，然后才是常规的页面布局，在页面布局中可以通过-的方式来绑定data标签中的数据到View中"><a href="#2）、xml跟布局改为layout标签，然后申明data标签，用于申明变量，然后才是常规的页面布局，在页面布局中可以通过-的方式来绑定data标签中的数据到View中" class="headerlink" title="2）、xml跟布局改为layout标签，然后申明data标签，用于申明变量，然后才是常规的页面布局，在页面布局中可以通过@{}的方式来绑定data标签中的数据到View中"></a>2）、xml跟布局改为layout标签，然后申明data标签，用于申明变量，然后才是常规的页面布局，在页面布局中可以通过<code>@{}</code>的方式来绑定data标签中的数据到View中</h6><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">layout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">xmlns:app</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">data</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">variable</span></span></span><br><span class="line"><span class="tag">                <span class="attr">name</span>=<span class="string">"viewmodel"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">type</span>=<span class="string">"com.myapp.data.ViewModel"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">data</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ConstraintLayout...</span> /&gt;</span> <span class="comment">&lt;!-- UI layout's root element --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">layout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<!-- more -->
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/jetpack/" rel="tag"># jetpack</a>
+              <a href="/tags/mvvm/" rel="tag"># mvvm</a>
+              <a href="/tags/框架/" rel="tag"># 框架</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/05/14/Android本机部署https服务实现局域网内加密通信的问题/" rel="prev" title="Android本机部署https服务实现局域网内加密通信的问题">
+      <i class="fa fa-chevron-left"></i> Android本机部署https服务实现局域网内加密通信的问题
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/05/20/Kotlin和Java的常用方法的区别总结/" rel="next" title="Kotlin和Java的常用方法的区别总结">
+      Kotlin和Java的常用方法的区别总结 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、使用AndroidX库，替换android-support库"><span class="nav-number">1.</span> <span class="nav-text">一、使用AndroidX库，替换android.support库</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1）、在项目中使用AndroidX"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">1）、在项目中使用AndroidX</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、在项目中使用视图绑定ViewBinding替代findViewById"><span class="nav-number">2.</span> <span class="nav-text">二、在项目中使用视图绑定ViewBinding替代findViewById</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#申明"><span class="nav-number">2.1.</span> <span class="nav-text">申明</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1）、通过在build-gradle中申明如下："><span class="nav-number">2.1.0.1.</span> <span class="nav-text">1）、通过在build.gradle中申明如下：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2）、如果要在某个布局中移除视图绑定，可以在布局文件中声明："><span class="nav-number">2.1.0.2.</span> <span class="nav-text">2）、如果要在某个布局中移除视图绑定，可以在布局文件中声明：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用"><span class="nav-number">2.2.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1）、系统会自动生成一个xml对应的Binding文件"><span class="nav-number">2.2.0.1.</span> <span class="nav-text">1）、系统会自动生成一个xml对应的Binding文件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-、所有在xml中申明id的View都会在Binding中创建对应的绑定引用"><span class="nav-number">2.2.0.2.</span> <span class="nav-text">2)、所有在xml中申明id的View都会在Binding中创建对应的绑定引用</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3）、通过Binding获取布局文件的根视图"><span class="nav-number">2.2.0.3.</span> <span class="nav-text">3）、通过Binding获取布局文件的根视图</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意和区别"><span class="nav-number">2.3.</span> <span class="nav-text">注意和区别</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1）、与使用-findViewById-相比，视图绑定具有一些很显著的优点："><span class="nav-number">2.3.0.1.</span> <span class="nav-text">1）、与使用 findViewById 相比，视图绑定具有一些很显著的优点：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2）、视图绑定和数据绑定库均会生成可用于直接引用视图的绑定类。不过，这两者之间存在明显差异："><span class="nav-number">2.3.0.2.</span> <span class="nav-text">2）、视图绑定和数据绑定库均会生成可用于直接引用视图的绑定类。不过，这两者之间存在明显差异：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、数据绑定库"><span class="nav-number">3.</span> <span class="nav-text">三、数据绑定库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简介"><span class="nav-number">3.1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1）、不使用"><span class="nav-number">3.1.0.1.</span> <span class="nav-text">1）、不使用</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2）、使用数据绑定"><span class="nav-number">3.1.0.2.</span> <span class="nav-text">2）、使用数据绑定</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用-1"><span class="nav-number">3.2.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-、在app的gradle中申明如下："><span class="nav-number">3.2.0.1.</span> <span class="nav-text">1)、在app的gradle中申明如下：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2）、xml跟布局改为layout标签，然后申明data标签，用于申明变量，然后才是常规的页面布局，在页面布局中可以通过-的方式来绑定data标签中的数据到View中"><span class="nav-number">3.2.0.2.</span> <span class="nav-text">2）、xml跟布局改为layout标签，然后申明data标签，用于申明变量，然后才是常规的页面布局，在页面布局中可以通过@{}的方式来绑定data标签中的数据到View中</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">小辜同学, gupengcheng311@gmail.com</p>
+  <div class="site-description" itemprop="description">生命不息，奋斗不止</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小辜同学, gupengcheng311@gmail.com</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
