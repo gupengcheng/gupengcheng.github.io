@@ -54,7 +54,7 @@
 <meta property="og:site_name" content="小辜同学">
 <meta property="og:description" content="一、使用AndroidX库，替换android.support库比如引用appcompat库方式如下： com.android.support:appcompat-v7:28.0.0 包含ActionBar、AppCompatActivity、AppCompatDialog、ShareActionProvider等主要类，28.0.0是最后一个维护的版本，之后谷歌不再维护android.suppo">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2020-05-26T03:34:10.841Z">
+<meta property="og:updated_time" content="2020-05-28T05:50:23.198Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Jetpack框架使用总结">
 <meta name="twitter:description" content="一、使用AndroidX库，替换android.support库比如引用appcompat库方式如下： com.android.support:appcompat-v7:28.0.0 包含ActionBar、AppCompatActivity、AppCompatDialog、ShareActionProvider等主要类，28.0.0是最后一个维护的版本，之后谷歌不再维护android.suppo">
@@ -201,7 +201,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-26 11:34:10" itemprop="dateModified" datetime="2020-05-26T11:34:10+08:00">2020-05-26</time>
+                <time title="Modified: 2020-05-28 13:50:23" itemprop="dateModified" datetime="2020-05-28T13:50:23+08:00">2020-05-28</time>
               </span>
 
           
@@ -257,6 +257,8 @@
 <h6 id="2）、xml跟布局改为layout标签，然后申明data标签，用于申明变量，然后才是常规的页面布局，在页面布局中可以通过-的方式来绑定data标签中的数据到View中"><a href="#2）、xml跟布局改为layout标签，然后申明data标签，用于申明变量，然后才是常规的页面布局，在页面布局中可以通过-的方式来绑定data标签中的数据到View中" class="headerlink" title="2）、xml跟布局改为layout标签，然后申明data标签，用于申明变量，然后才是常规的页面布局，在页面布局中可以通过@{}的方式来绑定data标签中的数据到View中"></a>2）、xml跟布局改为layout标签，然后申明data标签，用于申明变量，然后才是常规的页面布局，在页面布局中可以通过<code>@{}</code>的方式来绑定data标签中的数据到View中</h6><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">layout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">xmlns:app</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">data</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">variable</span></span></span><br><span class="line"><span class="tag">                <span class="attr">name</span>=<span class="string">"viewmodel"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">type</span>=<span class="string">"com.myapp.data.ViewModel"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">data</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ConstraintLayout...</span> /&gt;</span> <span class="comment">&lt;!-- UI layout's root element --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">layout</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <!-- more -->
+
+
     </div>
 
     
@@ -356,7 +358,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -365,7 +367,7 @@
         <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-count">57</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
