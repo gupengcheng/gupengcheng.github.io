@@ -46,18 +46,18 @@
   };
 </script>
 
-  <meta name="description" content="静默安装其实就是在用户无感知，无需操作的情况下完成app的安装，主要分为两种情况的处理，即Root和非Root。分别采用了两种方式去实现，这里模仿的是360手机助手的静默安装和闪装的功能，分别也是对应root手机和非root手机的方案。从安装到自启动分为两个步骤实现。 一. 安装的方案（root和非root手机）1、root机型静默安装并自启动这一块，很早做应用商店就接触过。主要分为root过的手">
+  <meta name="description" content="静默安装其实就是在用户无感知，无需操作的情况下完成app的安装，主要分为两种情况的处理，即Root和非Root。分别采用了两种方式去实现，这里模仿的是360手机助手的静默安装和闪装的功能，分别也是对应root手机和非root手机的方案。从安装到自启动分为两个步骤实现。">
 <meta name="keywords" content="自启动,静默安装,两种方案">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android静默安装并自启动自身app">
 <meta property="og:url" content="http://gupengcheng.github.io/2020/05/28/Android静默安装并自启动自身app/index.html">
 <meta property="og:site_name" content="小辜同学">
-<meta property="og:description" content="静默安装其实就是在用户无感知，无需操作的情况下完成app的安装，主要分为两种情况的处理，即Root和非Root。分别采用了两种方式去实现，这里模仿的是360手机助手的静默安装和闪装的功能，分别也是对应root手机和非root手机的方案。从安装到自启动分为两个步骤实现。 一. 安装的方案（root和非root手机）1、root机型静默安装并自启动这一块，很早做应用商店就接触过。主要分为root过的手">
+<meta property="og:description" content="静默安装其实就是在用户无感知，无需操作的情况下完成app的安装，主要分为两种情况的处理，即Root和非Root。分别采用了两种方式去实现，这里模仿的是360手机助手的静默安装和闪装的功能，分别也是对应root手机和非root手机的方案。从安装到自启动分为两个步骤实现。">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2020-05-28T13:42:26.025Z">
+<meta property="og:updated_time" content="2020-05-28T13:43:45.285Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android静默安装并自启动自身app">
-<meta name="twitter:description" content="静默安装其实就是在用户无感知，无需操作的情况下完成app的安装，主要分为两种情况的处理，即Root和非Root。分别采用了两种方式去实现，这里模仿的是360手机助手的静默安装和闪装的功能，分别也是对应root手机和非root手机的方案。从安装到自启动分为两个步骤实现。 一. 安装的方案（root和非root手机）1、root机型静默安装并自启动这一块，很早做应用商店就接触过。主要分为root过的手">
+<meta name="twitter:description" content="静默安装其实就是在用户无感知，无需操作的情况下完成app的安装，主要分为两种情况的处理，即Root和非Root。分别采用了两种方式去实现，这里模仿的是360手机助手的静默安装和闪装的功能，分别也是对应root手机和非root手机的方案。从安装到自启动分为两个步骤实现。">
 
 <link rel="canonical" href="http://gupengcheng.github.io/2020/05/28/Android静默安装并自启动自身app/">
 
@@ -195,7 +195,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-05-28 11:23:21 / Modified: 21:42:26" itemprop="dateCreated datePublished" datetime="2020-05-28T11:23:21+08:00">2020-05-28</time>
+              <time title="Created: 2020-05-28 11:23:21 / Modified: 21:43:45" itemprop="dateCreated datePublished" datetime="2020-05-28T11:23:21+08:00">2020-05-28</time>
             </span>
 
           
@@ -210,6 +210,8 @@
 
       
         <p>静默安装其实就是在用户无感知，无需操作的情况下完成app的安装，主要分为两种情况的处理，即Root和非Root。分别采用了两种方式去实现，这里模仿的是360手机助手的静默安装和闪装的功能，分别也是对应root手机和非root手机的方案。从安装到自启动分为两个步骤实现。</p>
+<a id="more"></a>
+
 <h3 id="一-安装的方案（root和非root手机）"><a href="#一-安装的方案（root和非root手机）" class="headerlink" title="一. 安装的方案（root和非root手机）"></a>一. 安装的方案（root和非root手机）</h3><h5 id="1、root机型"><a href="#1、root机型" class="headerlink" title="1、root机型"></a>1、root机型</h5><p>静默安装并自启动这一块，很早做应用商店就接触过。主要分为root过的手机和非root手机的处理。我们都知道root过的手机在应用获取到root权限之后，是可以执行静默安装的命令的，其实就是通过<code>su</code>命令去执行<code>pm install -r</code>安装app。</p>
 <h5 id="2、非root机型"><a href="#2、非root机型" class="headerlink" title="2、非root机型"></a>2、非root机型</h5><p>而对于非root的普通手机，是无法执行这个命令的，但是360给我们提供了一种参考方案，就是获取android提供的无障碍服务权限，让用户或者如果是ToB的应用，在给客户安装的时候就打开无障碍的权限开关，开启自动安装。可以实现监听系统安装应用，自动帮助用户点击如：“确定”、“安装”、“打开”之类的按钮。</p>
 <p><strong>首先需要用户同意无障碍服务，又叫智能安装的一个开关，如果用户没有同意，需要提醒用户打开，然后跳转到设置页面让用户操作：</strong></p>
@@ -242,7 +244,7 @@
 <p>​    配置如下，监听包替换的广播，判断是否和当前包名一致，如果一致，则执行启动app的任务：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">receiver</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:name</span>=<span class="string">".receiver.ReplaceReceiver"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:enabled</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:exported</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">            <span class="tag">&lt;<span class="name">intent-filter</span> <span class="attr">android:priority</span>=<span class="string">"2147483647"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">                <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.PACKAGE_REPLACED"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">data</span> <span class="attr">android:scheme</span>=<span class="string">"package"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;/<span class="name">receiver</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-
+<!-- more -->
     </div>
 
     
