@@ -170,6 +170,263 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="http://gupengcheng.github.io/2020/06/24/flutter开发问题总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="小辜同学, gupengcheng311@gmail.com">
+      <meta itemprop="description" content="生命不息，奋斗不止">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小辜同学">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/24/flutter开发问题总结/" class="post-title-link" itemprop="url">flutter开发问题总结</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-06-24 17:52:01 / Modified: 18:18:12" itemprop="dateCreated datePublished" datetime="2020-06-24T17:52:01+08:00">2020-06-24</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>一. Waiting for another flutter command to release the startup lock的问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">killall -9 dart</span><br></pre></td></tr></table></figure>
+
+<p>二.关于mac设置代理的问题</p>
+<p><a href="http://gdky005.com/2018/03/29/Mac-和-Android-Studio-命令行走-Shadowsocks-代理/" target="_blank" rel="noopener">Mac 和 Android Studio 命令行走 Shadowsocks 代理</a></p>
+<p>先开启 SS 的全局模式，查看到代理的 ip 和 port, 然后命令行每次需要设置下 <code>export ALL_PROXY=socks5://127.0.0.1:1086</code>, 只对当前窗口有效。至于 ping 命令不行，而代码库能拉下来的原因是：<br>SS 不会代理到 ICMP 包 同理也无法测试路由跟踪。<br>因为ping用的icmp， 代理没代理icmp。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nc -X 5 -x 127.0.0.1:1086 youtube.com 443 -v</span><br><span class="line">-x 是当前代理的端口和地址</span><br><span class="line"></span><br><span class="line">-X 5 表示 socks5</span><br><span class="line">-X 4 表示 socks4</span><br><span class="line">-X connect 表示 https</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="http://gupengcheng.github.io/2020/06/24/值得学习的博客/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="小辜同学, gupengcheng311@gmail.com">
+      <meta itemprop="description" content="生命不息，奋斗不止">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小辜同学">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/24/值得学习的博客/" class="post-title-link" itemprop="url">值得学习的博客</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-06-24 15:20:59 / Modified: 15:35:41" itemprop="dateCreated datePublished" datetime="2020-06-24T15:20:59+08:00">2020-06-24</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ol>
+<li><p><a href="https://jsonchao.github.io/" target="_blank" rel="noopener">Deep into Android</a></p>
+<p><a href="https://jsonchao.github.io/categories/其它/" target="_blank" rel="noopener">可能改变你的话</a></p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br></pre></td><td class="code"><pre><span class="line">&gt; 1.一个浪头打过来，最好的办法是迎上去了解个究竟，而不是漠视，或者干脆当事情没有发生。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 2.记住这个教训：别猜，去问！去查！</span><br><span class="line">&gt; </span><br><span class="line">&gt; 3.隔一段时间重顾知识是记忆的关键方法。不要一次性学完一项知识就不管了，这样你无法真正的掌握。隔一段时间回顾一下，每次重复，你都会加深自己的</span><br><span class="line">&gt; 理解，次数多了，你就会理解每个细节，成为真正的专家。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 4.对于一个技术通常我们需要抱有这样的疑问</span><br><span class="line">&gt; </span><br><span class="line">&gt; 它是什么 一句话概括</span><br><span class="line">&gt; 解决了什么问题 存在的意义</span><br><span class="line">&gt; 怎样去使用它</span><br><span class="line">&gt; 怎样解决了问题 内部的实现</span><br><span class="line">&gt; 它的缺点是什么 多角度分析</span><br><span class="line">&gt; </span><br><span class="line">&gt; 5.高效率的学习方法。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 理清楚概念很重要</span><br><span class="line">&gt; 做好控制变量法</span><br><span class="line">&gt; 多动手实践，与理论结合</span><br><span class="line">&gt; 抓住重点，剔除干扰因素</span><br><span class="line">&gt; </span><br><span class="line">&gt; 6.关于如何选择第三方库</span><br><span class="line">&gt; </span><br><span class="line">&gt; 确定这个库是否是必需的</span><br><span class="line">&gt; 这个库能否带来开发效率的提升，降低代码的维护成本</span><br><span class="line">&gt; 这个库的学习成本如何 比如rxjava其实学习成本会相对高一些。</span><br><span class="line">&gt; 这个库的质量如何，不要仅仅看star，更要看issue的处理情况。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 7.怎样练习算法题？</span><br><span class="line">&gt; </span><br><span class="line">&gt; 每道算法题都先自己去实现，先写思路，然后自己去实现一遍，然后再看看答案，记住答案的思路，第二天再重新按照答案的思路实现一遍。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 8.&quot;另类&quot;的学习方法</span><br><span class="line">&gt; </span><br><span class="line">&gt; 抄书的奥妙——那就是延缓阅读速度，不至遗漏每一个重要的细节：眼到，手到，心到，其实不仅书抄得，代码(优秀源码)也抄得。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 9.建议：建立逐字稿</span><br><span class="line">&gt; </span><br><span class="line">&gt; 计算机网络相关的逐字稿</span><br><span class="line">&gt; 计算机操作系统相关的逐字稿</span><br><span class="line">&gt; 数据库相关的逐字稿</span><br><span class="line">&gt; 设计模式相关的逐字稿</span><br><span class="line">&gt; 数据结构与算法相关的逐字稿</span><br><span class="line">&gt; Java知识相关的逐字稿</span><br><span class="line">&gt; Kotlin知识相关的逐字稿</span><br><span class="line">&gt; Python知识相关的逐字稿</span><br><span class="line">&gt; React Native知识相关的逐字稿</span><br><span class="line">&gt; Flutter知识相关的逐字稿</span><br><span class="line">&gt; 小程序知识相关的逐字稿</span><br><span class="line">&gt; JS知识相关的逐字稿</span><br><span class="line">&gt; Android知识相关的逐字稿</span><br><span class="line">&gt; 与技术无关的逐字稿</span><br><span class="line">&gt; </span><br><span class="line">&gt; 10.如何提升你的阅读能力？</span><br><span class="line">&gt; </span><br><span class="line">&gt; 只字不差的反复阅读</span><br><span class="line">&gt; 真正的获取知识，是通过阅读，深入思考与践行</span><br><span class="line">&gt; </span><br><span class="line">&gt; 11.如何高效阅读一篇文章？</span><br><span class="line">&gt; </span><br><span class="line">&gt; 由主题扩展为知识树</span><br><span class="line">&gt; 尝试描述</span><br><span class="line">&gt; 尝试记忆</span><br><span class="line">&gt; </span><br><span class="line">&gt; 12.如何阅读源码？</span><br><span class="line">&gt; </span><br><span class="line">&gt; 流程：</span><br><span class="line">&gt; 1.寻找驱动力</span><br><span class="line">&gt; 2.浏览官方文档，对开源项目的功能、架构有大概的印象</span><br><span class="line">&gt; 3.在工作中或实践中使用开源项目</span><br><span class="line">&gt; 4.网上搜索针对该开源项目进行分析的优秀文章</span><br><span class="line">&gt; 5.对开源项目提出自己的疑问</span><br><span class="line">&gt; 6.把开源项目下载到本地，并导入IDE，方便调试、测试</span><br><span class="line">&gt; 7.带着疑问阅读源码</span><br><span class="line">&gt; 8.阅读源码过程中多添加注释、多做笔记</span><br><span class="line">&gt; 9.做阅读总结，吸收和再创造</span><br><span class="line">&gt; </span><br><span class="line">&gt; 准备：</span><br><span class="line">&gt; Java设计模式(模板方法，单例，观察者，工厂方法，代理，策略，装饰者)，</span><br><span class="line">&gt; Java高级相关</span><br><span class="line">&gt; 熟练掌握这个库</span><br><span class="line">&gt; 先Google了解软件的整体架构设计</span><br><span class="line">&gt; 搭建系统，把源码跑起来</span><br><span class="line">&gt; </span><br><span class="line">&gt; 开始阅读：</span><br><span class="line">&gt; 根据你对系统的理解，设计几个主要的测试案例，定义好输入，输出。(Debug一遍肯定是不行的，需要Debug很多遍)</span><br><span class="line">&gt; 第一篇抛弃细节，抓住主要流程，第二篇，第三篇，再去看各个部分的细节。</span><br><span class="line">&gt; 阅读的时候同时使用UML画出系统的类图。</span><br><span class="line">&gt; 主要的测试案例明白了，丰富测试案例，考虑一些分支。</span><br><span class="line">&gt; 这一步会非常非常地花费时间，但是你做完了，对系统的理解绝对有质的飞跃。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 13.想象一个来自未来的自己，他非常自信，非常成功，</span><br><span class="line">&gt; 拥有你现在所希望的一切，他会对现在的你说些什么？</span><br><span class="line">&gt; 他怎么说，你就怎么去做，10年之后，你就变成了他。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 14.重视实践，充分运用感性认知潜能，在项目中磨炼自</span><br><span class="line">&gt; 己，才是正确的学习之道。在实践中，在某些关键动作</span><br><span class="line">&gt; 上刻意练习，也会取得事半功倍的效果。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 15.我们需要从别人身上学习。从老师、领导、同事、</span><br><span class="line">&gt; 下属甚至对手身上学习，是快速成长的重要手段。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 16.多多总结，多多分享，善莫大焉。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 17.解答别人的问题也是个人成长的重要手段。有时候，</span><br><span class="line">&gt; 某个问题自己本来不太懂，但是在给别人讲解的时候却</span><br><span class="line">&gt; 豁然开朗。所以，“诲人不倦”利人惠己。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 18.学习计划最好能结合工作计划，理论联系实际结合，快速学以致用。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 19.良好的用人方式应该如下：</span><br><span class="line">&gt; </span><br><span class="line">&gt; 首选选择相信，在面临失败后，收缩信任度。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 查找失败的原因，提供改进意见，提升下属的能力。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 总是给下属机会，在恰当地时机给下属更高的挑战。 总之，苍天大树来自一颗小种子，要相信成长的力量。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 20.学习就是不断地刻意联系，刻意练习，就是有目的的练习，先规划好，</span><br><span class="line">&gt; 再去练习。首先给自己定一个目标，目标可以有效的引导你学习，然后使</span><br><span class="line">&gt; 用3F练习法：</span><br><span class="line">&gt; </span><br><span class="line">&gt; 1： 专注（Focus），专注在眼前的任务上，在学习过程中保持专注，可以尝试使用番茄工作法。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 2：反馈（Feedback），意识到自己的不足，学习完之后进行反思，思考下自己哪些方面不足，为什么不足，</span><br><span class="line">&gt; </span><br><span class="line">&gt; 3： 修正（Fix），改进自己的不足。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 不停的练习和思考可以改变大脑结构，大脑像肌肉一样，挑战越大，影响越大，学习更高效，并且也会产生突破性。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 21.写一篇博客的过程，其实就是对一件事情，学习、理解、思考、转化，最终输出成一篇博客的过程。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 22.深入浅出SQL给出的学习法则：</span><br><span class="line">&gt; </span><br><span class="line">&gt; 如何快速记忆知识？</span><br><span class="line">&gt; 将文字转换为图片（将文字嵌入图片效果比较好)，如果能转换为令人惊奇，有趣的情景模拟，那么可以让你的大脑意识到这是重要的东西，记忆效果会更好。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 1.慢慢来，理解越多，需要强记得就越少。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 2.勤做笔记，写下你的心得笔记。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 3.你的大脑会需要一段时间来消化新知识，如果之后再学别的知识，会使之前的记忆效果减弱，因此，在睡前看最重要的知识。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 4.喝水，多喝水。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 5.大声说出你想要记忆的知识，如果能与别人进行一问一答则效果更佳。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 6.当学习知识时，达到了漫不经心或过目即忘的状态，则应该让大脑好好休息。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 7.用心感受，让你的大脑知道这很重要，将学习的内容尽量以情景化+惊奇+幽默的形式展示出来。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 8.用学到的知识解决实际的难题（真实的情景演练）。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 23.想要学习新技术，想要提升自己，不是看见新技术就去学，沉下心来认真钻研才行，吃透它，不再为缓解焦虑而学习。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 24.业务代码一样很牛逼</span><br><span class="line">&gt; </span><br><span class="line">&gt; 1.使用封装和抽象可以使业务代码更具扩展性。</span><br><span class="line">&gt; 2.多和产品交流以便更好地理解和实现业务。</span><br><span class="line">&gt; 3.日志记录好了问题定位效率可以提升10倍。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 25.在工作中学习、实战提升是效果最好的，其余时间可有目的去碎片化学习</span><br><span class="line">&gt; 一整块知识，也可以快速构建牢固的知识体系。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 26.做更多：工作中熟悉多个业务代码，端到端（前后端）的业务代码，自学。</span><br><span class="line">&gt; 做更好：1.提升项目稳定性，引进单元测试和UI测试。</span><br><span class="line">&gt; 2.重构解耦项目。</span><br><span class="line">&gt; 3.性能优化。</span><br><span class="line">&gt; 4.设计模式去除重复代码。</span><br><span class="line">&gt; 做练习：1.学习</span><br><span class="line">&gt; 2.尝试</span><br><span class="line">&gt; 3.教学</span><br><span class="line">&gt; </span><br><span class="line">&gt; 27.一项新技术的出现，应该先去了解它，看它是否对自身的技术成长有比较大的帮助，有的话按优先级加入计划表</span><br><span class="line">&gt; </span><br><span class="line">&gt; </span><br><span class="line">&gt; 28.重复记忆时间间隔：1小时、早上/晚上、1天、3天、7天、1个月、3个月形成长期记忆~</span><br><span class="line">&gt; </span><br><span class="line">&gt; 29.学习一个新的知识点的流程：</span><br><span class="line">&gt; what、why、how、原理/源码、优缺点~</span><br><span class="line">&gt; 注意”先主后从“原则，多实践加深理解。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 30.真正地掌握一个知识点：</span><br><span class="line">&gt; </span><br><span class="line">&gt; 1.看书、博客和源码学习</span><br><span class="line">&gt; </span><br><span class="line">&gt; 2.看的过程中要把书中的例子都敲一遍，所有的代码都要亲自敲，不要使用复制粘贴，相信我，复制粘贴达不到你想要的效果</span><br><span class="line">&gt; </span><br><span class="line">&gt; 3.看的过程中多思考，多总结，多验证，把关键点和自己的思考总结写成博客或者笔记，于人于己都是好事</span><br><span class="line">&gt; </span><br><span class="line">&gt; 4.一个个的知识点重复上述的三个过程，并坚持下来</span><br><span class="line">&gt; </span><br><span class="line">&gt; 31.高效学习:</span><br><span class="line">&gt; 1.源头：一手资料</span><br><span class="line">&gt; 2.基础知识和原理</span><br><span class="line">&gt; 3.思维导图实现知识地图</span><br><span class="line">&gt; （注意：根节点即为一个技术最重要最主干的地方，也可以应用在重要的问题上面，最后实现一个倒树结构）</span><br><span class="line">&gt; </span><br><span class="line">&gt; 31.系统学习一门技术：</span><br><span class="line">&gt; 1.成因和目标</span><br><span class="line">&gt; 2.优势和劣势</span><br><span class="line">&gt; 3.适用场景（业务场景和技术场景）</span><br><span class="line">&gt; 4.组成部分和关键点</span><br><span class="line">&gt; 5.底层原理和关键实现</span><br><span class="line">&gt; 6.已有实现和它之间的比较</span><br><span class="line">&gt; </span><br><span class="line">&gt; 32.牢记三大沟通方式：尊重对方、倾听对方和情绪控制。沟通的目的不是为了附和对方，而是产生一种更完整更全面的认知。只有当双方都愿意接受不同的观点时，此时的沟通才会迸发出更多的火花，而这一切都需要发生在相互尊重的基础之上。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 33.学习的第一步是知道自己学习的这个知识问题是什么，答案是什么，然后找到这些问题和答案之间的关系，这个关系是我们需要学习的东西，最后能把这个关系通过通俗易懂的语言输出出来，那么这个知识你一定学会了。</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="http://gupengcheng.github.io/2020/06/07/activity-alias动态改变App图标/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="小辜同学, gupengcheng311@gmail.com">
+      <meta itemprop="description" content="生命不息，奋斗不止">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小辜同学">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/07/activity-alias动态改变App图标/" class="post-title-link" itemprop="url">activity-alias动态改变App图标</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-07 22:48:49" itemprop="dateCreated datePublished" datetime="2020-06-07T22:48:49+08:00">2020-06-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="http://gupengcheng.github.io/2020/06/01/聊聊Android屏幕适配/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="小辜同学, gupengcheng311@gmail.com">
+      <meta itemprop="description" content="生命不息，奋斗不止">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小辜同学">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/01/聊聊Android屏幕适配/" class="post-title-link" itemprop="url">聊聊Android屏幕适配</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-01 14:38:01" itemprop="dateCreated datePublished" datetime="2020-06-01T14:38:01+08:00">2020-06-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-24 15:32:38" itemprop="dateModified" datetime="2020-06-24T15:32:38+08:00">2020-06-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一、dp、dpi、px的关系"><a href="#一、dp、dpi、px的关系" class="headerlink" title="一、dp、dpi、px的关系"></a>一、dp、dpi、px的关系</h3><p>dp = px/（dpi/160），这里的160就是标准dpi，即mdpi（中等密度屏幕），我们可以把它作为一个基准，所有屏幕密度都和他做比较。那我们的dpi，屏幕密度是怎么算出来的？很简单，dpi代表的是每英寸的屏幕密度，由于英寸指的是屏幕的对角线，所以我们需要拿到对角线的像素总量，然后除以屏幕英寸，就得到了屏幕密度值dpi。即：<br>$$<br>dpi=\sqrt{屏幕分辨率长^2+屏幕分辨率宽^2}/屏幕尺寸<br>$$<br>比如华为P40手机，配置如下：6.1寸屏幕，2340<em>1080分辨率，我们按这个公式计算出来dpi=422，那么我们拿<br>$$<br>基准比例density=dpi即422/标准屏幕密度160=2.63<br>$$<br>*</em>（这个值并不属于任何一个基准比例，需要2.63+0.5f=3.13，四舍五入=3）**</p>
+<p>这里有一个倍数关系，对应的是我们res中drawable或者mipmap的倍数，比如hdpi对应的是1.5倍，xdpi对应的是2倍，xxdpi对应的是3倍，xxxdpi对应的是4倍，倍数越高，代表设备的屏幕密度也越大。</p>
+<p>这时候我们如果设计图中以P40作为设计尺寸，以像素px作为标注，那么我们需要换算成dp，这时候就很简单了，如下：<br>$$<br>dp=px/3，<br>$$<br>比如一个40px的图标，我们计算出来的dp=13。</p>
+<h3 id="二、适配的方案"><a href="#二、适配的方案" class="headerlink" title="二、适配的方案"></a>二、适配的方案</h3><p>谷歌官方方案（sw限定符）</p>
+<p>字节跳动动态改变destiny的方案</p>
+<p><del>郭霖的方案</del></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
     <link itemprop="mainEntityOfPage" href="http://gupengcheng.github.io/2020/05/28/Android静默安装并自启动自身app/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -567,281 +824,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="http://gupengcheng.github.io/2020/04/10/Android-App在部分设备上自启动会延迟的问题解决/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="小辜同学, gupengcheng311@gmail.com">
-      <meta itemprop="description" content="生命不息，奋斗不止">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小辜同学">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/10/Android-App在部分设备上自启动会延迟的问题解决/" class="post-title-link" itemprop="url">Android App在部分设备上自启动会延迟的问题解决</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-04-10 16:26:54 / Modified: 16:34:58" itemprop="dateCreated datePublished" datetime="2020-04-10T16:26:54+08:00">2020-04-10</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在App中加了自启动，收到广播后自动拉起app。</p>
-<blockquote>
-<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED">
-</uses-permission></blockquote>
-<p>在大多数设备上没有什么问题，重启后会自动拉起，但是发现在Android9.0的盒子上，断电后重启设备，app有时候会等好几分钟才会收到广播消息。</p>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>将广播的优先级提高，参考360手机助手的相关处理方式。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">receiver</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:name</span>=<span class="string">".receiver.AlarmReceiver"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:enabled</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:exported</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">intent-filter</span> <span class="attr">android:priority</span>=<span class="string">"2147483647"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.BOOT_COMPLETED"</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!--                &lt;action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" /&gt;--&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">receiver</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>这里可以看到360并没有按照官方的推荐方式将priority的值设置为-1000～1000之间，而是取了一个2147483647，实际测试的确app很快收到消息，被拉起来了。</p>
-<p>这一块只有源码里找找答案了。</p>
-<blockquote>
-<p>android:priority=”2147483647”</p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="http://gupengcheng.github.io/2020/04/08/youtube-dl常用命令/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="小辜同学, gupengcheng311@gmail.com">
-      <meta itemprop="description" content="生命不息，奋斗不止">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小辜同学">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/08/youtube-dl常用命令/" class="post-title-link" itemprop="url">youtube-dl常用命令</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-04-08 11:32:17 / Modified: 11:36:48" itemprop="dateCreated datePublished" datetime="2020-04-08T11:32:17+08:00">2020-04-08</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>1、列出当前可下载视频(地址 &lt;=&gt; videoUrl)</p>
-<blockquote>
-<p>youtube-dl –list-formats videoUrl</p>
-</blockquote>
-<p>2、列出可用字幕</p>
-<blockquote>
-<p>youtube-dl –list-subs videoUrl</p>
-</blockquote>
-<p>3、下载指定分辨率视频</p>
-<blockquote>
-<p>youtube-dl -f (1中列出的视频编号) videoUrl</p>
-</blockquote>
-<p>4、重命名下载后的文件名</p>
-<blockquote>
-<p>youtube-dl -o ‘文件名.mp4’ videoUrl</p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="http://gupengcheng.github.io/2020/04/07/ffmpeg音视频、字幕处理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="小辜同学, gupengcheng311@gmail.com">
-      <meta itemprop="description" content="生命不息，奋斗不止">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小辜同学">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/07/ffmpeg音视频、字幕处理/" class="post-title-link" itemprop="url">ffmpeg音视频、字幕处理</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-04-07 15:13:25" itemprop="dateCreated datePublished" datetime="2020-04-07T15:13:25+08:00">2020-04-07</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="http://gupengcheng.github.io/2020/04/07/Android使用ntp服务器时间更新本地时间的方案/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="小辜同学, gupengcheng311@gmail.com">
-      <meta itemprop="description" content="生命不息，奋斗不止">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小辜同学">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/07/Android使用ntp服务器时间更新本地时间的方案/" class="post-title-link" itemprop="url">Android使用ntp服务器时间更新本地时间的方案</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-04-07 15:12:59" itemprop="dateCreated datePublished" datetime="2020-04-07T15:12:59+08:00">2020-04-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-14 10:40:06" itemprop="dateModified" datetime="2020-05-14T10:40:06+08:00">2020-05-14</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、NTP同步"><a href="#一、NTP同步" class="headerlink" title="一、NTP同步"></a>一、NTP同步</h2><p>需要去同步公网或者局域网内部署的NTP标准时间服务器，默认的端口是123。</p>
-<h4 id="1）、公网可以用的NTP服务器"><a href="#1）、公网可以用的NTP服务器" class="headerlink" title="1）、公网可以用的NTP服务器"></a>1）、公网可以用的NTP服务器</h4>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/04/07/Android使用ntp服务器时间更新本地时间的方案/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -912,7 +894,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -921,7 +903,7 @@
         <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-count">60</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

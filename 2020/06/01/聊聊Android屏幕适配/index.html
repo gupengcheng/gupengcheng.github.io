@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://gupengcheng.github.io').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="一、dp、dpi、px的关系dp = px/（dpi/160），这里的160就是标准dpi，即mdpi（中等密度屏幕），我们可以把它作为一个基准，所有屏幕密度都和他做比较。那我们的dpi，屏幕密度是怎么算出来的？很简单，dpi代表的是每英寸的屏幕密度，由于英寸指的是屏幕的对角线，所以我们需要拿到对角线的像素总量，然后除以屏幕英寸，就得到了屏幕密度值dpi。即：$$dpi=\sqrt{屏幕分辨率长^">
+<meta name="keywords" content="Android,屏幕适配">
+<meta property="og:type" content="article">
+<meta property="og:title" content="聊聊Android屏幕适配">
+<meta property="og:url" content="http://gupengcheng.github.io/2020/06/01/聊聊Android屏幕适配/index.html">
+<meta property="og:site_name" content="小辜同学">
+<meta property="og:description" content="一、dp、dpi、px的关系dp = px/（dpi/160），这里的160就是标准dpi，即mdpi（中等密度屏幕），我们可以把它作为一个基准，所有屏幕密度都和他做比较。那我们的dpi，屏幕密度是怎么算出来的？很简单，dpi代表的是每英寸的屏幕密度，由于英寸指的是屏幕的对角线，所以我们需要拿到对角线的像素总量，然后除以屏幕英寸，就得到了屏幕密度值dpi。即：$$dpi=\sqrt{屏幕分辨率长^">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-06-24T07:32:38.529Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="聊聊Android屏幕适配">
+<meta name="twitter:description" content="一、dp、dpi、px的关系dp = px/（dpi/160），这里的160就是标准dpi，即mdpi（中等密度屏幕），我们可以把它作为一个基准，所有屏幕密度都和他做比较。那我们的dpi，屏幕密度是怎么算出来的？很简单，dpi代表的是每英寸的屏幕密度，由于英寸指的是屏幕的对角线，所以我们需要拿到对角线的像素总量，然后除以屏幕英寸，就得到了屏幕密度值dpi。即：$$dpi=\sqrt{屏幕分辨率长^">
+
+<link rel="canonical" href="http://gupengcheng.github.io/2020/06/01/聊聊Android屏幕适配/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>聊聊Android屏幕适配 | 小辜同学</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小辜同学</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">知行合一 —— 为天地立心，为生民立命</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="http://gupengcheng.github.io/2020/06/01/聊聊Android屏幕适配/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="小辜同学, gupengcheng311@gmail.com">
+      <meta itemprop="description" content="生命不息，奋斗不止">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小辜同学">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          聊聊Android屏幕适配
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-01 14:38:01" itemprop="dateCreated datePublished" datetime="2020-06-01T14:38:01+08:00">2020-06-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-24 15:32:38" itemprop="dateModified" datetime="2020-06-24T15:32:38+08:00">2020-06-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="一、dp、dpi、px的关系"><a href="#一、dp、dpi、px的关系" class="headerlink" title="一、dp、dpi、px的关系"></a>一、dp、dpi、px的关系</h3><p>dp = px/（dpi/160），这里的160就是标准dpi，即mdpi（中等密度屏幕），我们可以把它作为一个基准，所有屏幕密度都和他做比较。那我们的dpi，屏幕密度是怎么算出来的？很简单，dpi代表的是每英寸的屏幕密度，由于英寸指的是屏幕的对角线，所以我们需要拿到对角线的像素总量，然后除以屏幕英寸，就得到了屏幕密度值dpi。即：<br>$$<br>dpi=\sqrt{屏幕分辨率长^2+屏幕分辨率宽^2}/屏幕尺寸<br>$$<br>比如华为P40手机，配置如下：6.1寸屏幕，2340<em>1080分辨率，我们按这个公式计算出来dpi=422，那么我们拿<br>$$<br>基准比例density=dpi即422/标准屏幕密度160=2.63<br>$$<br>*</em>（这个值并不属于任何一个基准比例，需要2.63+0.5f=3.13，四舍五入=3）**</p>
+<p>这里有一个倍数关系，对应的是我们res中drawable或者mipmap的倍数，比如hdpi对应的是1.5倍，xdpi对应的是2倍，xxdpi对应的是3倍，xxxdpi对应的是4倍，倍数越高，代表设备的屏幕密度也越大。</p>
+<p>这时候我们如果设计图中以P40作为设计尺寸，以像素px作为标注，那么我们需要换算成dp，这时候就很简单了，如下：<br>$$<br>dp=px/3，<br>$$<br>比如一个40px的图标，我们计算出来的dp=13。</p>
+<h3 id="二、适配的方案"><a href="#二、适配的方案" class="headerlink" title="二、适配的方案"></a>二、适配的方案</h3><p>谷歌官方方案（sw限定符）</p>
+<p>字节跳动动态改变destiny的方案</p>
+<p><del>郭霖的方案</del></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"># Android</a>
+              <a href="/tags/屏幕适配/" rel="tag"># 屏幕适配</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/05/28/Android静默安装并自启动自身app/" rel="prev" title="Android静默安装并自启动自身app">
+      <i class="fa fa-chevron-left"></i> Android静默安装并自启动自身app
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/07/activity-alias动态改变App图标/" rel="next" title="activity-alias动态改变App图标">
+      activity-alias动态改变App图标 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、dp、dpi、px的关系"><span class="nav-number">1.</span> <span class="nav-text">一、dp、dpi、px的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、适配的方案"><span class="nav-number">2.</span> <span class="nav-text">二、适配的方案</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">小辜同学, gupengcheng311@gmail.com</p>
+  <div class="site-description" itemprop="description">生命不息，奋斗不止</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小辜同学, gupengcheng311@gmail.com</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
