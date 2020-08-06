@@ -54,7 +54,7 @@
 <meta property="og:site_name" content="小辜同学">
 <meta property="og:description" content="一、dp、dpi、px的关系dp = px/（dpi/160），这里的160就是标准dpi，即mdpi（中等密度屏幕），我们可以把它作为一个基准，所有屏幕密度都和他做比较。那我们的dpi，屏幕密度是怎么算出来的？很简单，dpi代表的是每英寸的屏幕密度，由于英寸指的是屏幕的对角线，所以我们需要拿到对角线的像素总量，然后除以屏幕英寸，就得到了屏幕密度值dpi。即：$$dpi=\sqrt{屏幕分辨率长^">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2020-06-24T07:32:38.529Z">
+<meta property="og:updated_time" content="2020-08-06T05:48:56.731Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="聊聊Android屏幕适配">
 <meta name="twitter:description" content="一、dp、dpi、px的关系dp = px/（dpi/160），这里的160就是标准dpi，即mdpi（中等密度屏幕），我们可以把它作为一个基准，所有屏幕密度都和他做比较。那我们的dpi，屏幕密度是怎么算出来的？很简单，dpi代表的是每英寸的屏幕密度，由于英寸指的是屏幕的对角线，所以我们需要拿到对角线的像素总量，然后除以屏幕英寸，就得到了屏幕密度值dpi。即：$$dpi=\sqrt{屏幕分辨率长^">
@@ -201,7 +201,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-24 15:32:38" itemprop="dateModified" datetime="2020-06-24T15:32:38+08:00">2020-06-24</time>
+                <time title="Modified: 2020-08-06 13:48:56" itemprop="dateModified" datetime="2020-08-06T13:48:56+08:00">2020-08-06</time>
               </span>
 
           
@@ -215,13 +215,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="一、dp、dpi、px的关系"><a href="#一、dp、dpi、px的关系" class="headerlink" title="一、dp、dpi、px的关系"></a>一、dp、dpi、px的关系</h3><p>dp = px/（dpi/160），这里的160就是标准dpi，即mdpi（中等密度屏幕），我们可以把它作为一个基准，所有屏幕密度都和他做比较。那我们的dpi，屏幕密度是怎么算出来的？很简单，dpi代表的是每英寸的屏幕密度，由于英寸指的是屏幕的对角线，所以我们需要拿到对角线的像素总量，然后除以屏幕英寸，就得到了屏幕密度值dpi。即：<br>$$<br>dpi=\sqrt{屏幕分辨率长^2+屏幕分辨率宽^2}/屏幕尺寸<br>$$<br>比如华为P40手机，配置如下：6.1寸屏幕，2340<em>1080分辨率，我们按这个公式计算出来dpi=422，那么我们拿<br>$$<br>基准比例density=dpi即422/标准屏幕密度160=2.63<br>$$<br>*</em>（这个值并不属于任何一个基准比例，需要2.63+0.5f=3.13，四舍五入=3）**</p>
+        <h3 id="一、dp、dpi、px的关系"><a href="#一、dp、dpi、px的关系" class="headerlink" title="一、dp、dpi、px的关系"></a>一、dp、dpi、px的关系</h3><p>dp = px/（dpi/160），这里的160就是标准dpi，即mdpi（中等密度屏幕），我们可以把它作为一个基准，所有屏幕密度都和他做比较。那我们的dpi，屏幕密度是怎么算出来的？很简单，dpi代表的是每英寸的屏幕密度，由于英寸指的是屏幕的对角线，所以我们需要拿到对角线的像素总量，然后除以屏幕英寸，就得到了屏幕密度值dpi。即：<br>$$<br>dpi=\sqrt{屏幕分辨率长^2+屏幕分辨率宽^2}/屏幕尺寸<br>$$</p>
+<a id="more"></a>
+
+<p>比如华为P40手机，配置如下：6.1寸屏幕，2340<em>1080分辨率，我们按这个公式计算出来dpi=422，那么我们拿<br>$$<br>基准比例density=dpi即422/标准屏幕密度160=2.63<br>$$<br>*</em>（这个值并不属于任何一个基准比例，需要2.63+0.5f=3.13，四舍五入=3）**</p>
 <p>这里有一个倍数关系，对应的是我们res中drawable或者mipmap的倍数，比如hdpi对应的是1.5倍，xdpi对应的是2倍，xxdpi对应的是3倍，xxxdpi对应的是4倍，倍数越高，代表设备的屏幕密度也越大。</p>
 <p>这时候我们如果设计图中以P40作为设计尺寸，以像素px作为标注，那么我们需要换算成dp，这时候就很简单了，如下：<br>$$<br>dp=px/3，<br>$$<br>比如一个40px的图标，我们计算出来的dp=13。</p>
 <h3 id="二、适配的方案"><a href="#二、适配的方案" class="headerlink" title="二、适配的方案"></a>二、适配的方案</h3><p>谷歌官方方案（sw限定符）</p>
 <p>字节跳动动态改变destiny的方案</p>
 <p><del>郭霖的方案</del></p>
-
+<!-- more -->
     </div>
 
     
@@ -320,7 +323,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -329,7 +332,7 @@
         <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

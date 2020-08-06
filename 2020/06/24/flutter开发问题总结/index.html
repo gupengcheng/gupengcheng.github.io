@@ -46,18 +46,18 @@
   };
 </script>
 
-  <meta name="description" content="一. Waiting for another flutter command to release the startup lock的问题 1killall -9 dart  二.关于mac设置代理的问题 Mac 和 Android Studio 命令行走 Shadowsocks 代理 先开启 SS 的全局模式，查看到代理的 ip 和 port, 然后命令行每次需要设置下 export ALL_P">
+  <meta name="description" content="一. Waiting for another flutter command to release the startup lock的问题1killall -9 dart">
 <meta name="keywords" content="flutter,问题总结">
 <meta property="og:type" content="article">
 <meta property="og:title" content="flutter开发问题总结">
 <meta property="og:url" content="http://gupengcheng.github.io/2020/06/24/flutter开发问题总结/index.html">
 <meta property="og:site_name" content="小辜同学">
-<meta property="og:description" content="一. Waiting for another flutter command to release the startup lock的问题 1killall -9 dart  二.关于mac设置代理的问题 Mac 和 Android Studio 命令行走 Shadowsocks 代理 先开启 SS 的全局模式，查看到代理的 ip 和 port, 然后命令行每次需要设置下 export ALL_P">
+<meta property="og:description" content="一. Waiting for another flutter command to release the startup lock的问题1killall -9 dart">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2020-06-24T10:18:12.111Z">
+<meta property="og:updated_time" content="2020-08-06T05:47:00.513Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="flutter开发问题总结">
-<meta name="twitter:description" content="一. Waiting for another flutter command to release the startup lock的问题 1killall -9 dart  二.关于mac设置代理的问题 Mac 和 Android Studio 命令行走 Shadowsocks 代理 先开启 SS 的全局模式，查看到代理的 ip 和 port, 然后命令行每次需要设置下 export ALL_P">
+<meta name="twitter:description" content="一. Waiting for another flutter command to release the startup lock的问题1killall -9 dart">
 
 <link rel="canonical" href="http://gupengcheng.github.io/2020/06/24/flutter开发问题总结/">
 
@@ -193,10 +193,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-06-24 17:52:01 / Modified: 18:18:12" itemprop="dateCreated datePublished" datetime="2020-06-24T17:52:01+08:00">2020-06-24</time>
+              <time title="Created: 2020-06-24 17:52:01" itemprop="dateCreated datePublished" datetime="2020-06-24T17:52:01+08:00">2020-06-24</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-06 13:47:00" itemprop="dateModified" datetime="2020-08-06T13:47:00+08:00">2020-08-06</time>
+              </span>
 
           
 
@@ -209,13 +215,35 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>一. Waiting for another flutter command to release the startup lock的问题</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">killall -9 dart</span><br></pre></td></tr></table></figure>
+        <h5 id="一-Waiting-for-another-flutter-command-to-release-the-startup-lock的问题"><a href="#一-Waiting-for-another-flutter-command-to-release-the-startup-lock的问题" class="headerlink" title="一. Waiting for another flutter command to release the startup lock的问题"></a>一. Waiting for another flutter command to release the startup lock的问题</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">killall -9 dart</span><br></pre></td></tr></table></figure>
 
-<p>二.关于mac设置代理的问题</p>
-<p><a href="http://gdky005.com/2018/03/29/Mac-和-Android-Studio-命令行走-Shadowsocks-代理/" target="_blank" rel="noopener">Mac 和 Android Studio 命令行走 Shadowsocks 代理</a></p>
+<a id="more"></a>
+
+<h5 id="二-关于mac设置代理的问题"><a href="#二-关于mac设置代理的问题" class="headerlink" title="二.关于mac设置代理的问题"></a>二.关于mac设置代理的问题</h5><p><a href="http://gdky005.com/2018/03/29/Mac-和-Android-Studio-命令行走-Shadowsocks-代理/" target="_blank" rel="noopener">Mac 和 Android Studio 命令行走 Shadowsocks 代理</a></p>
 <p>先开启 SS 的全局模式，查看到代理的 ip 和 port, 然后命令行每次需要设置下 <code>export ALL_PROXY=socks5://127.0.0.1:1086</code>, 只对当前窗口有效。至于 ping 命令不行，而代码库能拉下来的原因是：<br>SS 不会代理到 ICMP 包 同理也无法测试路由跟踪。<br>因为ping用的icmp， 代理没代理icmp。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nc -X 5 -x 127.0.0.1:1086 youtube.com 443 -v</span><br><span class="line">-x 是当前代理的端口和地址</span><br><span class="line"></span><br><span class="line">-X 5 表示 socks5</span><br><span class="line">-X 4 表示 socks4</span><br><span class="line">-X connect 表示 https</span><br></pre></td></tr></table></figure>
+
+<h5 id="三-查看当前terminal环境的ip"><a href="#三-查看当前terminal环境的ip" class="headerlink" title="三.查看当前terminal环境的ip"></a>三.查看当前terminal环境的ip</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl cip.cc</span><br></pre></td></tr></table></figure>
+
+<h5 id="四-mac上全局配置terminal翻墙（无效）"><a href="#四-mac上全局配置terminal翻墙（无效）" class="headerlink" title="四.mac上全局配置terminal翻墙（无效）"></a><del>四.mac上全局配置terminal翻墙（无效）</del></h5><p>​    在bash_profile中配置如下函数，需要打开和关闭代理的时候执行相应命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function proxy_on()&#123;</span><br><span class="line">    export http_proxy=http://127.0.0.1:1087</span><br><span class="line">    export https_proxy=http://127.0.0.1:1087</span><br><span class="line">    echo -e &quot;已开启代理&quot;</span><br><span class="line">&#125;</span><br><span class="line">function proxy_off()&#123;</span><br><span class="line">    unset http_proxy</span><br><span class="line">    unset https_proxy</span><br><span class="line">    echo -e &quot;已关闭代理&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="五-flutter-get-pub获取dependencies库失败的问题"><a href="#五-flutter-get-pub获取dependencies库失败的问题" class="headerlink" title="五.flutter get pub获取dependencies库失败的问题"></a>五.flutter get pub获取dependencies库失败的问题</h5><p>即便通过上面的二、三点在当前terminal窗口中代理，但是执行flutter get pub还是长时间无响应</p>
+<p>解决方案：</p>
+<p>关闭代理，设置环境变量如下，再重试flutter pub get就会用国内镜像下载</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PUB_HOSTED_URL=https://pub.flutter-io.cn</span><br><span class="line"><span class="built_in">export</span> FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn</span><br></pre></td></tr></table></figure>
+
+<p>这里要注意的是，如果关闭代理，在android studio中编译运行的时候，可能会遇到Downloading ios tools失败的情况，所以需要打开代理再build，如果发现运行flutter pub get可以成功，但点击android studio的pub get按钮却卡住了，执行一下Invalidate caches/Restart操作，重启后即可。</p>
+<p>对于iOS设备或者模拟器，需要额外去Xcode中去配置一下开发者的邮箱、密码信息，在Xcode中打开flutter项目下的ios目录中的Runner.xcodeproj，在Xcode中编译运行可能会更快。</p>
+<h5 id="六-解决android下编译失败的问题"><a href="#六-解决android下编译失败的问题" class="headerlink" title="六. 解决android下编译失败的问题"></a>六. 解决android下编译失败的问题</h5><p>android真机编译运行报错如下：</p>
+<blockquote>
+<p>Could not download x86_64_debug.jar (io.flutter:x86_64_debug:1.0.0-ee76268252c22f5c11e82a7b87423ca3982e51a7)</p>
+</blockquote>
+<p>在android module下gradle中添加</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">maven &#123; url <span class="string">"http://download.flutter.io"</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译成功。</p>
+<!-- more -->
     </div>
 
     
@@ -237,7 +265,10 @@
     <a href="/2020/06/24/值得学习的博客/" rel="prev" title="值得学习的博客">
       <i class="fa fa-chevron-left"></i> 值得学习的博客
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/13/kotlin进阶总结/" rel="next" title="kotlin进阶总结">
+      kotlin进阶总结 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -297,6 +328,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#一-Waiting-for-another-flutter-command-to-release-the-startup-lock的问题"><span class="nav-number">1.</span> <span class="nav-text">一. Waiting for another flutter command to release the startup lock的问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二-关于mac设置代理的问题"><span class="nav-number">2.</span> <span class="nav-text">二.关于mac设置代理的问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#三-查看当前terminal环境的ip"><span class="nav-number">3.</span> <span class="nav-text">三.查看当前terminal环境的ip</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#四-mac上全局配置terminal翻墙（无效）"><span class="nav-number">4.</span> <span class="nav-text">四.mac上全局配置terminal翻墙（无效）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#五-flutter-get-pub获取dependencies库失败的问题"><span class="nav-number">5.</span> <span class="nav-text">五.flutter get pub获取dependencies库失败的问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#六-解决android下编译失败的问题"><span class="nav-number">6.</span> <span class="nav-text">六. 解决android下编译失败的问题</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -310,7 +342,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -319,7 +351,7 @@
         <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
