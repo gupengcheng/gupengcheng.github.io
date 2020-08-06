@@ -170,6 +170,74 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="http://gupengcheng.github.io/2020/08/06/terminal中使用本地代理FQ/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="小辜同学, gupengcheng311@gmail.com">
+      <meta itemprop="description" content="生命不息，奋斗不止">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小辜同学">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/06/terminal中使用本地代理FQ/" class="post-title-link" itemprop="url">terminal中使用本地代理FQ</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-08-06 13:51:26 / Modified: 14:07:15" itemprop="dateCreated datePublished" datetime="2020-08-06T13:51:26+08:00">2020-08-06</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>terminal中我们常常会下载github中的仓库，但在国内下载速度真的感人，如果什么都不做，20kb/s的速度很常见，对于动辄几百M或者1G的项目，我只能说你很厉害。</p>
+<p>再看看我hostwinds的服务器20M/S的速度，真心羡慕美国的同学们，下载编译分分钟完成。</p>
+<p>那么我们怎么提高在国内下载github等或者更直接的terminal FQ呢？（曾经看过一篇帖子，说是通过gitee码云这个网站，同步github仓库的代码，速度可以很快，抱着试试的态度，去尝试了一把，结果说是仓库太大，大概1G的一个仓库，让我转企业付费版，只能说有点坑）</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/06/terminal中使用本地代理FQ/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
     <link itemprop="mainEntityOfPage" href="http://gupengcheng.github.io/2020/08/06/flutter在不同平台之间编译运行/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -268,7 +336,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-06 13:47:30" itemprop="dateModified" datetime="2020-08-06T13:47:30+08:00">2020-08-06</time>
+                <time title="Modified: 2020-08-06 14:08:27" itemprop="dateModified" datetime="2020-08-06T14:08:27+08:00">2020-08-06</time>
               </span>
 
           
@@ -283,11 +351,6 @@
 
       
           <h2 id="语法进阶总结"><a href="#语法进阶总结" class="headerlink" title="语法进阶总结"></a>语法进阶总结</h2><h5 id="1、infix（中缀表示法）"><a href="#1、infix（中缀表示法）" class="headerlink" title="1、infix（中缀表示法）"></a>1、infix（中缀表示法）</h5><p>标有infix关键字的函数可以使用中缀表示法调用（忽略该调用的点与圆括号）。</p>
-<p>中缀函数必须满足如下要求：</p>
-<p>— 必须是成员函数或者扩展函数；</p>
-<p>— 必须只有一个参数；</p>
-<p>— 其参数不得接受可变数量的参数且不能有默认值；</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">infix</span> <span class="function"><span class="keyword">fun</span> <span class="built_in">Int</span>.<span class="title">shl</span><span class="params">(x: <span class="type">Int</span>)</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>+x</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用中缀表示法调用该函数</span></span><br><span class="line"><span class="number">1</span> shl <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 等同于这样</span></span><br><span class="line"><span class="number">1</span>.shl(<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/07/13/kotlin进阶总结/#more" rel="contents">
@@ -808,63 +871,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="http://gupengcheng.github.io/2020/05/14/Android本机部署https服务实现局域网内加密通信的问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="小辜同学, gupengcheng311@gmail.com">
-      <meta itemprop="description" content="生命不息，奋斗不止">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小辜同学">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/14/Android本机部署https服务实现局域网内加密通信的问题/" class="post-title-link" itemprop="url">Android本机部署https服务实现局域网内加密通信的问题</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-05-14 10:33:32" itemprop="dateCreated datePublished" datetime="2020-05-14T10:33:32+08:00">2020-05-14</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -935,7 +941,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -944,7 +950,7 @@
         <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-count">64</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

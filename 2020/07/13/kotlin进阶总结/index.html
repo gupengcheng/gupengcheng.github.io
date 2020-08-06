@@ -46,18 +46,18 @@
   };
 </script>
 
-  <meta name="description" content="语法进阶总结1、infix（中缀表示法）标有infix关键字的函数可以使用中缀表示法调用（忽略该调用的点与圆括号）。 中缀函数必须满足如下要求： — 必须是成员函数或者扩展函数； — 必须只有一个参数； — 其参数不得接受可变数量的参数且不能有默认值； 123456789infix fun Int.shl(x: Int): Int &amp;#123;	return this+x&amp;#125;// 用中缀表">
+  <meta name="description" content="语法进阶总结1、infix（中缀表示法）标有infix关键字的函数可以使用中缀表示法调用（忽略该调用的点与圆括号）。">
 <meta name="keywords" content="kotlin,进阶">
 <meta property="og:type" content="article">
 <meta property="og:title" content="kotlin进阶总结">
 <meta property="og:url" content="http://gupengcheng.github.io/2020/07/13/kotlin进阶总结/index.html">
 <meta property="og:site_name" content="小辜同学">
-<meta property="og:description" content="语法进阶总结1、infix（中缀表示法）标有infix关键字的函数可以使用中缀表示法调用（忽略该调用的点与圆括号）。 中缀函数必须满足如下要求： — 必须是成员函数或者扩展函数； — 必须只有一个参数； — 其参数不得接受可变数量的参数且不能有默认值； 123456789infix fun Int.shl(x: Int): Int &amp;#123;	return this+x&amp;#125;// 用中缀表">
+<meta property="og:description" content="语法进阶总结1、infix（中缀表示法）标有infix关键字的函数可以使用中缀表示法调用（忽略该调用的点与圆括号）。">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2020-08-06T05:47:30.366Z">
+<meta property="og:updated_time" content="2020-08-06T06:08:27.535Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kotlin进阶总结">
-<meta name="twitter:description" content="语法进阶总结1、infix（中缀表示法）标有infix关键字的函数可以使用中缀表示法调用（忽略该调用的点与圆括号）。 中缀函数必须满足如下要求： — 必须是成员函数或者扩展函数； — 必须只有一个参数； — 其参数不得接受可变数量的参数且不能有默认值； 123456789infix fun Int.shl(x: Int): Int &amp;#123;	return this+x&amp;#125;// 用中缀表">
+<meta name="twitter:description" content="语法进阶总结1、infix（中缀表示法）标有infix关键字的函数可以使用中缀表示法调用（忽略该调用的点与圆括号）。">
 
 <link rel="canonical" href="http://gupengcheng.github.io/2020/07/13/kotlin进阶总结/">
 
@@ -201,7 +201,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-06 13:47:30" itemprop="dateModified" datetime="2020-08-06T13:47:30+08:00">2020-08-06</time>
+                <time title="Modified: 2020-08-06 14:08:27" itemprop="dateModified" datetime="2020-08-06T14:08:27+08:00">2020-08-06</time>
               </span>
 
           
@@ -216,13 +216,13 @@
 
       
         <h2 id="语法进阶总结"><a href="#语法进阶总结" class="headerlink" title="语法进阶总结"></a>语法进阶总结</h2><h5 id="1、infix（中缀表示法）"><a href="#1、infix（中缀表示法）" class="headerlink" title="1、infix（中缀表示法）"></a>1、infix（中缀表示法）</h5><p>标有infix关键字的函数可以使用中缀表示法调用（忽略该调用的点与圆括号）。</p>
+<a id="more"></a>
+
 <p>中缀函数必须满足如下要求：</p>
 <p>— 必须是成员函数或者扩展函数；</p>
 <p>— 必须只有一个参数；</p>
 <p>— 其参数不得接受可变数量的参数且不能有默认值；</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">infix</span> <span class="function"><span class="keyword">fun</span> <span class="built_in">Int</span>.<span class="title">shl</span><span class="params">(x: <span class="type">Int</span>)</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>+x</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用中缀表示法调用该函数</span></span><br><span class="line"><span class="number">1</span> shl <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 等同于这样</span></span><br><span class="line"><span class="number">1</span>.shl(<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
 
 <h5 id="2、suspend关键字"><a href="#2、suspend关键字" class="headerlink" title="2、suspend关键字"></a>2、suspend关键字</h5><p>kotlin利用此关键字强制从协程内调用函数。</p>
 <p>suspend申明函数，在函数内部通过withContext来切换函数在IO线程执行。</p>
@@ -331,7 +331,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -340,7 +340,7 @@
         <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-count">64</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
