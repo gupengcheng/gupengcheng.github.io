@@ -46,18 +46,18 @@
   };
 </script>
 
-  <meta name="description" content="1、列出当前可下载视频(地址 &amp;lt;=&amp;gt; videoUrl)  youtube-dl –list-formats videoUrl  2、列出可用字幕  youtube-dl –list-subs videoUrl  3、下载指定分辨率视频  youtube-dl -f (1中列出的视频编号) videoUrl  4、重命名下载后的文件名  youtube-dl -o ‘文件名.mp4’">
+  <meta name="description" content="1、列出当前可下载视频(地址 = youtubeUrl)  youtube-dl -F “youtubeUrl”  1.1、列出所有支持的字幕 1youtube-dl --list-subs  2、列出可用字幕  youtube-dl –list-subs “youtubeUrl”  3、下载指定分辨率视频  youtube-dl -f (1中列出的视频编号)  “youtubeUrl”  4、重">
 <meta name="keywords" content="android,iOS,Flutter,Kotlin,Web">
 <meta property="og:type" content="article">
 <meta property="og:title" content="youtube-dl常用命令">
 <meta property="og:url" content="http://gupengcheng.github.io/2020/04/08/youtube-dl常用命令/index.html">
 <meta property="og:site_name" content="小辜同学">
-<meta property="og:description" content="1、列出当前可下载视频(地址 &amp;lt;=&amp;gt; videoUrl)  youtube-dl –list-formats videoUrl  2、列出可用字幕  youtube-dl –list-subs videoUrl  3、下载指定分辨率视频  youtube-dl -f (1中列出的视频编号) videoUrl  4、重命名下载后的文件名  youtube-dl -o ‘文件名.mp4’">
+<meta property="og:description" content="1、列出当前可下载视频(地址 = youtubeUrl)  youtube-dl -F “youtubeUrl”  1.1、列出所有支持的字幕 1youtube-dl --list-subs  2、列出可用字幕  youtube-dl –list-subs “youtubeUrl”  3、下载指定分辨率视频  youtube-dl -f (1中列出的视频编号)  “youtubeUrl”  4、重">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2020-04-08T03:36:48.236Z">
+<meta property="og:updated_time" content="2020-09-09T03:40:19.824Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="youtube-dl常用命令">
-<meta name="twitter:description" content="1、列出当前可下载视频(地址 &amp;lt;=&amp;gt; videoUrl)  youtube-dl –list-formats videoUrl  2、列出可用字幕  youtube-dl –list-subs videoUrl  3、下载指定分辨率视频  youtube-dl -f (1中列出的视频编号) videoUrl  4、重命名下载后的文件名  youtube-dl -o ‘文件名.mp4’">
+<meta name="twitter:description" content="1、列出当前可下载视频(地址 = youtubeUrl)  youtube-dl -F “youtubeUrl”  1.1、列出所有支持的字幕 1youtube-dl --list-subs  2、列出可用字幕  youtube-dl –list-subs “youtubeUrl”  3、下载指定分辨率视频  youtube-dl -f (1中列出的视频编号)  “youtubeUrl”  4、重">
 
 <link rel="canonical" href="http://gupengcheng.github.io/2020/04/08/youtube-dl常用命令/">
 
@@ -193,10 +193,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-04-08 11:32:17 / Modified: 11:36:48" itemprop="dateCreated datePublished" datetime="2020-04-08T11:32:17+08:00">2020-04-08</time>
+              <time title="Created: 2020-04-08 11:32:17" itemprop="dateCreated datePublished" datetime="2020-04-08T11:32:17+08:00">2020-04-08</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-09 11:40:19" itemprop="dateModified" datetime="2020-09-09T11:40:19+08:00">2020-09-09</time>
+              </span>
 
           
 
@@ -209,22 +215,31 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>1、列出当前可下载视频(地址 &lt;=&gt; videoUrl)</p>
+        <p>1、列出当前可下载视频(地址 = youtubeUrl)</p>
 <blockquote>
-<p>youtube-dl –list-formats videoUrl</p>
+<p>youtube-dl -F “youtubeUrl”</p>
 </blockquote>
+<p>1.1、列出所有支持的字幕</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">youtube-dl --list-subs</span><br></pre></td></tr></table></figure>
+
 <p>2、列出可用字幕</p>
 <blockquote>
-<p>youtube-dl –list-subs videoUrl</p>
+<p>youtube-dl –list-subs “youtubeUrl”</p>
 </blockquote>
 <p>3、下载指定分辨率视频</p>
 <blockquote>
-<p>youtube-dl -f (1中列出的视频编号) videoUrl</p>
+<p>youtube-dl -f (1中列出的视频编号)  “youtubeUrl”</p>
 </blockquote>
 <p>4、重命名下载后的文件名</p>
 <blockquote>
-<p>youtube-dl -o ‘文件名.mp4’ videoUrl</p>
+<p>youtube-dl -o ‘文件名.mp4’ “youtubeUrl”</p>
 </blockquote>
+<p>5、单独下载音频文件</p>
+<blockquote>
+<p>youtube-dl -x –audio-format “mp3” –audio-quality 0 “youtubeUrl”</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">-x 											Convert video files to audio-only files</span><br><span class="line">--audio-format   				Specify audio format: &quot;best&quot;, &quot;aac&quot;,</span><br><span class="line">                                 &quot;flac&quot;, &quot;mp3&quot;, &quot;m4a&quot;, &quot;opus&quot;, &quot;vorbis&quot;, or</span><br><span class="line">                                 &quot;wav&quot;; &quot;best&quot; by default; No effect without</span><br><span class="line">                                 -x</span><br><span class="line">                                 </span><br><span class="line">--audio-quality         Specify ffmpeg/avconv audio quality, insert</span><br><span class="line">                                 a value between 0 (better) and 9 (worse)</span><br><span class="line">                                 for VBR or a specific bitrate like 128K</span><br><span class="line">                                 (default 5)</span><br></pre></td></tr></table></figure>
+
 
     </div>
 
@@ -319,7 +334,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -328,7 +343,7 @@
         <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-count">69</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
